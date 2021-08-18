@@ -21,7 +21,7 @@
             android:textSize="16dp"
             android:text="Menu"
             app:layout_constraintStart_toStartOf="parent"
-            android:textColor="@color/darkgrey"
+            android:textColor="@color/white"
             android:background="@drawable/game_menu_buttons"
             tools:ignore="MissingConstraints" />
         <Button
@@ -34,7 +34,7 @@
             android:fontFamily="sans-serif-medium"
             android:textSize="10dp"
             android:text="Upgrades"
-            android:textColor="@color/darkgrey"
+            android:textColor="@color/white"
             tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -52,7 +52,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:text="999999"
             android:textSize="32dp"
-            android:textColor="@color/lightgrey"
+            android:textColor="@color/white"
             tools:ignore="MissingConstraints" />
         <TextView
             android:id="@+id/tv_ptstxt"
