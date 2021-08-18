@@ -24,8 +24,8 @@
                     android:shape="oval">
                     <gradient
                         android:angle="270"
-                        android:endColor="@color/lightgreen"
-                        android:startColor="@color/white"/>
+                        android:endColor="@color/darkgreen"
+                        android:startColor="@color/darkgreen"/>
                     <size
                         android:height="16dp"
                         android:width="16dp"
@@ -59,8 +59,8 @@
                 android:shape="oval">
                 <gradient
                     android:angle="270"
-                    android:endColor="@color/lightgrey"
-                    android:startColor="@color/white"/>
+                    android:endColor="@color/lightgreen"
+                    android:startColor="@color/lightgreen"/>
                 <size
                     android:height="16dp"
                     android:width="16dp"

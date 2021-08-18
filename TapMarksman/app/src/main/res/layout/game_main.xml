@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@color/darkgreybg">
+    android:background="@color/lighterblue">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:background="@color/lightgrey"
+        android:background="@color/darkblue"
         app:layout_constraintTop_toTopOf="parent">
         <Button
             android:id="@+id/btn_return"
@@ -22,7 +22,7 @@
             android:text="Menu"
             app:layout_constraintStart_toStartOf="parent"
             android:textColor="@color/darkgrey"
-            android:background="@drawable/return_menu_button"
+            android:background="@drawable/game_menu_buttons"
             tools:ignore="MissingConstraints" />
         <Button
             android:id="@+id/btn_upgrades"
@@ -30,7 +30,7 @@
             android:layout_height="60dp"
             android:layout_marginRight="4dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/return_menu_button"
+            android:background="@drawable/game_menu_buttons"
             android:fontFamily="sans-serif-medium"
             android:textSize="10dp"
             android:text="Upgrades"
@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:background="@color/lightgrey"
+        android:background="@color/darkblue"
         app:layout_constraintBottom_toBottomOf="parent">
         <TextView
             android:id="@+id/tv_ptsctr"
@@ -52,6 +52,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:text="999999"
             android:textSize="32dp"
+            android:textColor="@color/lightgrey"
             tools:ignore="MissingConstraints" />
         <TextView
             android:id="@+id/tv_ptstxt"
@@ -62,7 +63,7 @@
             android:layout_marginRight="12dp"
             app:layout_constraintEnd_toStartOf="@id/tv_ptsctr"
             android:text="Points"
-            android:textColor="@color/darkgrey"
+            android:textColor="@color/darkbluefont"
             android:textSize="24dp"
             tools:ignore="MissingConstraints" />
 
