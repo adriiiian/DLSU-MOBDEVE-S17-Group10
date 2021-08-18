@@ -4,7 +4,7 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "31.0.0"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.mobdeve.s17.batac.joric.jerez.adrian.myapplication"
@@ -25,6 +25,10 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildFeatures{
+        viewBinding true
     }
 }
 

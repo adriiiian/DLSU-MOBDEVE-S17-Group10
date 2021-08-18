@@ -4,15 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/darkgrey">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints"
+        >
+
+        <Button
+            android:id="@+id/btn_offline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_menu_buttons"
+            app:backgroundTint="@null"
+            android:text="Offline Mode"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:layout_marginBottom="10dp"/>
+
+        <Button
+            android:id="@+id/btn_online"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_menu_buttons"
+            app:backgroundTint="@null"
+            android:text="Online Mode"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:layout_marginBottom="10dp"/>
+
+        <Button
+            android:id="@+id/btn_createaccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_menu_buttons"
+            app:backgroundTint="@null"
+            android:text="Create Account"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:layout_marginBottom="10dp"/>
+
+        <Button
+            android:id="@+id/btn_leaderboards"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_menu_buttons"
+            app:backgroundTint="@null"
+            android:text="Leaderboards"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            android:textAllCaps="false"
+            android:layout_marginBottom="10dp"/>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
