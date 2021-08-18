@@ -14,8 +14,8 @@
                         android:height="50dp"/>
                     <gradient
                         android:angle="270"
-                        android:endColor="@color/darkgreybtn"
-                        android:startColor="@color/darkgreybtn"/>
+                        android:endColor="@color/black"
+                        android:startColor="@color/black"/>
                 </shape>
             </item>
             <item
@@ -48,8 +48,8 @@
                         android:height="50dp"/>
                     <gradient
                         android:angle="270"
-                        android:endColor="@color/darkgreybtn"
-                        android:startColor="@color/darkgreybtn"/>
+                        android:endColor="@color/black"
+                        android:startColor="@color/black"/>
                 </shape>
             </item>
             <item

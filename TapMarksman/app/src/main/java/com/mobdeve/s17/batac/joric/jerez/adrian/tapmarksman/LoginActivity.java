@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
 
 import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.databinding.ActivityLoginBinding;
 
@@ -33,6 +35,10 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         });
 
+        binding.btnLogin.setOnClickListener(view -> {
+            submit();
+        });
+
 
 
     }
@@ -55,6 +61,51 @@ public class LoginActivity extends AppCompatActivity {
         binding.tvPassword.setOnClickListener(view -> {
             binding.etPassword.requestFocus();
         });
+    }
+
+    private boolean submit(){
+        boolean result = false;
+        if(checkEmptyFields("username") && checkEmptyFields("password")){
+            // code to check if username and password is correct
+            result = true;
+        }
+        return result;
+    }
+
+    private boolean checkEmptyFields(String field){
+        binding.llUsername.setBackgroundResource(R.drawable.signup_login_edit_texts);
+        binding.llPassword.setBackgroundResource(R.drawable.signup_login_edit_texts);
+        boolean result = false;
+        switch(field){
+            case "username":
+                if(TextUtils.isEmpty(binding.etUsername.getText().toString())){
+                    binding.llUsername.setBackgroundResource(R.drawable.error_edit_texts);
+                    binding.tvError.setVisibility(View.VISIBLE);
+                }
+                else{
+                    binding.llUsername.setBackgroundResource(R.drawable.signup_login_edit_texts);
+                    binding.tvError.setVisibility(View.INVISIBLE);
+                    result = true;
+                }
+                break;
+
+            case "password":
+                if(TextUtils.isEmpty(binding.etPassword.getText().toString())){
+                    binding.llPassword.setBackgroundResource(R.drawable.error_edit_texts);
+                    binding.tvError.setVisibility(View.VISIBLE);
+                }
+                else{
+                    binding.llPassword.setBackgroundResource(R.drawable.signup_login_edit_texts);
+                    binding.tvError.setVisibility(View.INVISIBLE);
+                    result = true;
+                }
+                break;
+
+            default:
+
+                break;
+        }
+        return result;
     }
 
     @Override

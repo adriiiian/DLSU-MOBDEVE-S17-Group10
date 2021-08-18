@@ -83,6 +83,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/ll_username"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:background="@drawable/signup_login_edit_texts"
@@ -114,11 +115,13 @@
                     android:layout_width="280dp"
                     android:layout_height="35dp"
                     android:textColor="@color/black"
-                    android:background="@color/transparent"/>
+                    android:background="@color/transparent"
+                    android:inputType="textPassword"/>
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_password"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:background="@drawable/signup_login_edit_texts"
@@ -150,7 +153,8 @@
                     android:layout_width="280dp"
                     android:layout_height="35dp"
                     android:textColor="@color/black"
-                    android:background="@color/transparent"/>
+                    android:background="@color/transparent"
+                    android:inputType="textPassword"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -175,11 +179,21 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <TextView
+            android:id="@+id/tv_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please input correctly!"
+            android:textColor="@color/red"
+            android:textSize="14sp"
+            android:visibility="invisible"/>
+
         <Button
+            android:id="@+id/btn_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/login_signup_button"
-            android:text="SIGN UP"
+            android:text="LOGIN"
             android:textSize="18sp"
             android:layout_marginTop="30dp"/>
     </LinearLayout>
