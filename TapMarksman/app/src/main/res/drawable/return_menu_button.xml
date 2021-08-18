@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <layer-list>
+            <item
+                android:left="2dp"
+                android:top="2dp">
+                <shape xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:shape="oval">
+                    <gradient
+                        android:angle="270"
+                        android:endColor="@color/darkgreybtn"
+                        android:startColor="@color/darkgreybg"/>
+                    <size
+                        android:height="16dp"
+                        android:width="16dp"
+                        />
+                </shape>
+            </item>
+            <item
+                android:bottom="2dp"
+                android:right="2dp">
+                <shape xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:shape="oval">
+                    <gradient
+                        android:angle="270"
+                        android:endColor="@color/lightgreen"
+                        android:startColor="@color/white"/>
+                    <size
+                        android:height="16dp"
+                        android:width="16dp"
+                        />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <item android:state_enabled="true">
+    <layer-list>
+        <item
+            android:left="2dp"
+            android:top="2dp">
+            <shape xmlns:android="http://schemas.android.com/apk/res/android"
+                android:shape="oval">
+                <gradient
+                    android:angle="270"
+                    android:endColor="@color/darkgreybtn"
+                    android:startColor="@color/darkgreybg"/>
+                <size
+                    android:height="16dp"
+                    android:width="16dp"
+                    />
+            </shape>
+        </item>
+        <item
+        android:bottom="2dp"
+        android:right="2dp">
+            <shape xmlns:android="http://schemas.android.com/apk/res/android"
+                android:shape="oval">
+                <gradient
+                    android:angle="270"
+                    android:endColor="@color/lightgrey"
+                    android:startColor="@color/white"/>
+                <size
+                    android:height="16dp"
+                    android:width="16dp"
+                    />
+            </shape>
+        </item>
+        </layer-list>
+    </item>
+
+
+
+</selector>
