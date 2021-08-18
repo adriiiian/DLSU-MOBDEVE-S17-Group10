@@ -1,11 +1,11 @@
-package com.mobdeve.s17.batac.joric.jerez.adrian.myapplication;
+package com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.mobdeve.s17.batac.joric.jerez.adrian.myapplication.databinding.ActivityMainBinding;
+import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 

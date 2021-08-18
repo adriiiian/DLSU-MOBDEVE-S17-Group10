@@ -1,4 +1,4 @@
-package com.mobdeve.s17.batac.joric.jerez.adrian.myapplication;
+package com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman;
 
 import org.junit.Test;
 
