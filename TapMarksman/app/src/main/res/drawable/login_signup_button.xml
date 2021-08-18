@@ -33,18 +33,15 @@
             </item>
         </layer-list>
     </item>
-
     <item
         android:state_enabled="true">
         <layer-list>
-            <item
-                android:left="5dp"
-                android:top="5dp">
+            <item>
                 <shape>
                     <corners
-                        android:radius="8dp"/>
+                        android:radius="15dp"/>
                     <size
-                        android:width="275dp"
+                        android:width="330dp"
                         android:height="50dp"/>
                     <gradient
                         android:angle="270"
@@ -53,20 +50,14 @@
                 </shape>
             </item>
             <item
-                android:bottom="4dp"
-                android:right="4dp">
+                android:bottom="5dp">
                 <shape>
+                    <corners
+                        android:radius="15dp"/>
                     <solid
                         android:color="@color/lightgreen"/>
-                    <corners
-                        android:radius="8dp" />
-                    <padding
-                        android:bottom="10dp"
-                        android:left="10dp"
-                        android:right="10dp"
-                        android:top="10dp" />
                     <size
-                        android:width="275dp"
+                        android:width="330dp"
                         android:height="50dp"/>
                 </shape>
             </item>

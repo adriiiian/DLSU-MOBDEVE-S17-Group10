@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Tap Marksman</string>
+    <string name="login"><u>Login</u></string>
+    <string name="signup"><u>Signup</u></string>
 </resources>
