@@ -9,8 +9,8 @@
                     android:shape="oval">
                     <gradient
                         android:angle="270"
-                        android:endColor="@color/darkgreybtn"
-                        android:startColor="@color/darkgreybg"/>
+                        android:endColor="@color/black"
+                        android:startColor="@color/black"/>
                     <size
                         android:height="16dp"
                         android:width="16dp"
@@ -24,7 +24,7 @@
                     android:shape="oval">
                     <gradient
                         android:angle="270"
-                        android:endColor="@color/darkgreen"
+                        android:endColor="@color/black"
                         android:startColor="@color/darkgreen"/>
                     <size
                         android:height="16dp"
@@ -44,8 +44,8 @@
                 android:shape="oval">
                 <gradient
                     android:angle="270"
-                    android:endColor="@color/darkgreybtn"
-                    android:startColor="@color/darkgreybg"/>
+                    android:endColor="@color/black"
+                    android:startColor="@color/black"/>
                 <size
                     android:height="16dp"
                     android:width="16dp"
