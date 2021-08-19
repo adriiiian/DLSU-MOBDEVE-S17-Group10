@@ -3,8 +3,7 @@
     package="com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman">
 
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
 
     <application
         android:allowBackup="true"
