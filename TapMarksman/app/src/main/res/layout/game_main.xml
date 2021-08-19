@@ -7,6 +7,7 @@
     tools:context=".MainActivity"
     android:background="@color/lighterblue">
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_upper"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,6 +40,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_bottom"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
