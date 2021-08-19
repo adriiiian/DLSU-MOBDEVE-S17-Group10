@@ -21,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.dao.UserDAO;
+import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.dao.UserDAOFirebaseImpl;
 import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.databinding.ActivitySignUpBinding;
 import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.model.User;
 
@@ -29,7 +31,6 @@ public class SignUpActivity extends AppCompatActivity {
     private ActivitySignUpBinding binding;
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase;
-    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +40,13 @@ public class SignUpActivity extends AppCompatActivity {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("users");
-        user = new User();
 
         setRequestFocus();
+        init();
+    }
+
+    private void init(){
+        UserDAO userDAO = new UserDAOFirebaseImpl();
 
         // Listener to go back to main menu page
         binding.fabBack.setOnClickListener(view -> {
@@ -58,47 +63,24 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
         binding.btnSignup.setOnClickListener(view -> {
-            String username = binding.etUsername.getText().toString();
-            String email = binding.etEmail.getText().toString();
-            String password = binding.etPassword.getText().toString();
-            String userid = "user1";
-//            if(ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED){
-//                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, 1);
-//            }
 
-            submit(username, email, password, userid);
+            if(checkEmptyFields("username") && checkEmptyFields("email") &&
+                    checkEmptyFields("password") && checkEmptyFields("cfpassword")) {
+                User user = new User();
+
+                user.setUserName(binding.etUsername.getText().toString());
+                user.setUserEmail(binding.etEmail.getText().toString());
+                user.setUserPassword(binding.etPassword.getText().toString());
+                user.setUserId("user1");
+
+                userDAO.addUser(user); // This line adds the user into the firebase database
+            }
+
+            else{
+                // Code for invalid inputs
+                Toast.makeText(this, "ELSE", Toast.LENGTH_SHORT).show();
+            }
         });
-
-    }
-
-    private boolean submit(String username, String email, String password, String userid){
-        if(checkEmptyFields("username") && checkEmptyFields("email") &&
-                checkEmptyFields("password") && checkEmptyFields("cfpassword")){
-
-            user.setUserId(userid);
-            user.setUserName(username);
-            user.setUserEmail(email);
-            user.setUserPassword(password);
-
-            databaseReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot snapshot) {
-                    databaseReference.setValue(user);
-                    Toast.makeText(SignUpActivity.this, "data added", Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onCancelled(DatabaseError error) {
-                    Toast.makeText(SignUpActivity.this, "Fail to add data " + error, Toast.LENGTH_SHORT).show();
-                }
-
-
-            });
-        }
-        else{
-            Toast.makeText(getApplicationContext(), "ELSE", Toast.LENGTH_SHORT).show();
-        }
-        return true;
     }
 
     private boolean checkEmptyFields(String field){

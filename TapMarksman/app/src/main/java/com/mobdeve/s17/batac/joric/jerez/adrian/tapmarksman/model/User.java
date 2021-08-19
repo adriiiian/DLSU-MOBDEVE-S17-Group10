@@ -1,10 +1,21 @@
 package com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.model;
 
-public class User {
-    private String userId, userName, userEmail, userPassword;
+import java.io.Serializable;
+
+public class User implements Serializable {
+    private String userId = "";
+    private String userName = "";
+    private String userEmail = "";
+    private String userPassword = "";
 
     public User(){
 
+    }
+
+    public User(String userName, String userEmail, String userPassword){
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
     }
 
     public String getUserId() {
