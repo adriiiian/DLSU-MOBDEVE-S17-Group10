@@ -8,7 +8,7 @@ public interface UserDAO {
 
     long addUser(User user);
     ArrayList<User> getUsers();
-    User getUser(int userid);
+    User getUser(String userName, String userPassword);
     int updateUser(User user);
     int deleteUser(int userid);
 

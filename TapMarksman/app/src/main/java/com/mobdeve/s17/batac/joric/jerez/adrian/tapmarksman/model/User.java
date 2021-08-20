@@ -3,7 +3,6 @@ package com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.model;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    private String userId = "";
     private String userName = "";
     private String userEmail = "";
     private String userPassword = "";
@@ -16,14 +15,6 @@ public class User implements Serializable {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public String getUserName() {

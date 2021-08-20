@@ -29,17 +29,13 @@ import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.model.User;
 public class SignUpActivity extends AppCompatActivity {
 
     private ActivitySignUpBinding binding;
-    private DatabaseReference databaseReference;
-    private FirebaseDatabase firebaseDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("users");
 
         setRequestFocus();
         init();
@@ -71,14 +67,18 @@ public class SignUpActivity extends AppCompatActivity {
                 user.setUserName(binding.etUsername.getText().toString());
                 user.setUserEmail(binding.etEmail.getText().toString());
                 user.setUserPassword(binding.etPassword.getText().toString());
-                user.setUserId("user1");
 
                 userDAO.addUser(user); // This line adds the user into the firebase database
+                Toast.makeText(this, "You registered successfully!", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
 
             else{
                 // Code for invalid inputs
-                Toast.makeText(this, "ELSE", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please input correctly!", Toast.LENGTH_SHORT).show();
             }
         });
     }

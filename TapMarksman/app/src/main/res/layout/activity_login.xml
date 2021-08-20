@@ -114,9 +114,8 @@
                     android:id="@+id/et_username"
                     android:layout_width="280dp"
                     android:layout_height="35dp"
-                    android:textColor="@color/black"
-                    android:background="@color/transparent"
-                    android:inputType="textPassword"/>
+                    android:textColor="@color/white"
+                    android:background="@color/transparent"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -152,7 +151,7 @@
                     android:id="@+id/et_password"
                     android:layout_width="280dp"
                     android:layout_height="35dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:background="@color/transparent"
                     android:inputType="textPassword"/>
             </LinearLayout>
