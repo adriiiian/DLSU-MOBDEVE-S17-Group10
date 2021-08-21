@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.NoActionBar">
-        <activity android:name="com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.LoginActivity"></activity>
+        <activity android:name="com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.LoginActivity" />
         <activity android:name="com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.SignUpActivity" />
         <activity android:name="com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.MainActivity">
             <intent-filter>
@@ -21,6 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.GameOnlineActivity" />
     </application>
 
 </manifest>

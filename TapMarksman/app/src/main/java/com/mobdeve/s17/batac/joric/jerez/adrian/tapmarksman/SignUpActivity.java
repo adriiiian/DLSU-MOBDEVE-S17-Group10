@@ -1,26 +1,18 @@
 package com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.dao.UserDAO;
 import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.dao.UserDAOFirebaseImpl;
 import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.databinding.ActivitySignUpBinding;
@@ -29,6 +21,7 @@ import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.model.User;
 public class SignUpActivity extends AppCompatActivity {
 
     private ActivitySignUpBinding binding;
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -43,6 +36,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void init(){
         UserDAO userDAO = new UserDAOFirebaseImpl();
+        mAuth = FirebaseAuth.getInstance();
 
         // Listener to go back to main menu page
         binding.fabBack.setOnClickListener(view -> {
@@ -60,22 +54,34 @@ public class SignUpActivity extends AppCompatActivity {
 
         binding.btnSignup.setOnClickListener(view -> {
 
-            if(checkEmptyFields("username") && checkEmptyFields("email") &&
-                    checkEmptyFields("password") && checkEmptyFields("cfpassword")) {
-                User user = new User();
+            if(checkNonEmptyFields()) {
+                if(checkValidPassword()){
+                    User user = new User();
 
-                user.setUserName(binding.etUsername.getText().toString());
-                user.setUserEmail(binding.etEmail.getText().toString());
-                user.setUserPassword(binding.etPassword.getText().toString());
+                    user.setUserName(binding.etUsername.getText().toString());
+                    user.setUserEmail(binding.etEmail.getText().toString());
+                    user.setUserPassword(binding.etPassword.getText().toString());
 
-                userDAO.addUser(user); // This line adds the user into the firebase database
-                Toast.makeText(this, "You registered successfully!", Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
-                startActivity(intent);
-                finish();
+                    // Code for user authentication and adding to firebase database
+                    mAuth.createUserWithEmailAndPassword(user.getUserEmail(), user.getUserPassword()).addOnCompleteListener(
+                            new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(Task<AuthResult> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(getApplicationContext(), "You registered successfully!", Toast.LENGTH_LONG).show();
+                                        userDAO.addUser(user); // This line adds the user into the firebase database
+                                        Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                    else{
+                                        Toast.makeText(getApplicationContext(), "Registration Failed! Please try again", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }
+                    );
+                }
             }
-
             else{
                 // Code for invalid inputs
                 Toast.makeText(this, "Please input correctly!", Toast.LENGTH_SHORT).show();
@@ -83,84 +89,74 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private boolean checkEmptyFields(String field){
+    // This method is used to check if the fields submitted by the user is empty.
+    // Returns true if there is no empty fields, and false otherwise.
+    private boolean checkNonEmptyFields(){
         binding.llUsername.setBackgroundResource(R.drawable.signup_login_edit_texts);
         binding.llEmail.setBackgroundResource(R.drawable.signup_login_edit_texts);
         binding.llPassword.setBackgroundResource(R.drawable.signup_login_edit_texts);
         binding.llCfpassword.setBackgroundResource(R.drawable.signup_login_edit_texts);
-        boolean result = false;
-        switch(field){
-            case "username":
-                if(TextUtils.isEmpty(binding.etUsername.getText().toString())){
-                    binding.llUsername.setBackgroundResource(R.drawable.error_edit_texts);
-                    binding.tvError.setVisibility(View.VISIBLE);
-                }
-                else{
-                    binding.llUsername.setBackgroundResource(R.drawable.signup_login_edit_texts);
-                    binding.tvError.setVisibility(View.INVISIBLE);
-                    result = true;
-                }
-                break;
-            case "email":
-                if(TextUtils.isEmpty(binding.etEmail.getText().toString())){
-                    binding.llEmail.setBackgroundResource(R.drawable.error_edit_texts);
-                    binding.tvError.setVisibility(View.VISIBLE);
-                }
-                else{
-                    binding.llEmail.setBackgroundResource(R.drawable.signup_login_edit_texts);
-                    binding.tvError.setVisibility(View.INVISIBLE);
-                    result = true;
-                }
-                break;
+        boolean result = true;
 
-            case "password":
-                if(TextUtils.isEmpty(binding.etPassword.getText().toString())){
-                    binding.llPassword.setBackgroundResource(R.drawable.error_edit_texts);
-                    binding.tvError.setVisibility(View.VISIBLE);
-                }
-                else{
-                    if(binding.etPassword.getText().toString().equalsIgnoreCase(
-                            binding.etCfpassword.getText().toString())){
-                        binding.llPassword.setBackgroundResource(R.drawable.signup_login_edit_texts);
-                        binding.llCfpassword.setBackgroundResource(R.drawable.signup_login_edit_texts);
-                        binding.tvError.setVisibility(View.INVISIBLE);
-                        result = true;
-                    }
-                    else{
-                        binding.llPassword.setBackgroundResource(R.drawable.error_edit_texts);
-                        binding.llCfpassword.setBackgroundResource(R.drawable.error_edit_texts);
-                        binding.tvError.setVisibility(View.VISIBLE);
-                    }
-
-                }
-                break;
-
-            case "cfpassword":
-                if(TextUtils.isEmpty(binding.etCfpassword.getText().toString())){
-                    binding.llCfpassword.setBackgroundResource(R.drawable.error_edit_texts);
-                    binding.tvError.setVisibility(View.VISIBLE);
-                }
-                else{
-                    if(binding.etCfpassword.getText().toString().equalsIgnoreCase(
-                            binding.etPassword.getText().toString())){
-                        binding.llCfpassword.setBackgroundResource(R.drawable.signup_login_edit_texts);
-                        binding.llPassword.setBackgroundResource(R.drawable.signup_login_edit_texts);
-                        binding.tvError.setVisibility(View.INVISIBLE);
-                        result = true;
-                    }
-                    else{
-                        binding.llPassword.setBackgroundResource(R.drawable.error_edit_texts);
-                        binding.llCfpassword.setBackgroundResource(R.drawable.error_edit_texts);
-                        binding.tvError.setVisibility(View.VISIBLE);
-                    }
-
-                }
-                break;
-
-            default:
-
-                break;
+        if(TextUtils.isEmpty(binding.etUsername.getText().toString())){
+            binding.llUsername.setBackgroundResource(R.drawable.error_edit_texts);
+            binding.tvError.setVisibility(View.VISIBLE);
+            result = false;
         }
+
+        else{
+            binding.llUsername.setBackgroundResource(R.drawable.signup_login_edit_texts);
+            binding.tvError.setVisibility(View.INVISIBLE);
+        }
+
+        if(TextUtils.isEmpty(binding.etEmail.getText().toString())){
+            binding.llEmail.setBackgroundResource(R.drawable.error_edit_texts);
+            binding.tvError.setVisibility(View.VISIBLE);
+            result = false;
+        }
+        else{
+            binding.llEmail.setBackgroundResource(R.drawable.signup_login_edit_texts);
+            binding.tvError.setVisibility(View.INVISIBLE);
+        }
+
+        if(TextUtils.isEmpty(binding.etPassword.getText().toString())){
+            binding.llPassword.setBackgroundResource(R.drawable.error_edit_texts);
+            binding.tvError.setVisibility(View.VISIBLE);
+            result = false;
+        }
+        else{
+            binding.llPassword.setBackgroundResource(R.drawable.signup_login_edit_texts);
+            binding.tvError.setVisibility(View.INVISIBLE);
+        }
+
+        if(TextUtils.isEmpty(binding.etCfpassword.getText().toString())){
+            binding.llCfpassword.setBackgroundResource(R.drawable.error_edit_texts);
+            binding.tvError.setVisibility(View.VISIBLE);
+            result = false;
+        }
+        else{
+            binding.llCfpassword.setBackgroundResource(R.drawable.signup_login_edit_texts);
+            binding.tvError.setVisibility(View.INVISIBLE);
+        }
+        return result;
+    }
+
+    // This method checks if the password matches the input in confirm password
+    private boolean checkValidPassword(){
+        boolean result = true;
+        if(binding.etPassword.getText().toString().equalsIgnoreCase(
+                binding.etCfpassword.getText().toString())){
+            binding.llPassword.setBackgroundResource(R.drawable.signup_login_edit_texts);
+            binding.llCfpassword.setBackgroundResource(R.drawable.signup_login_edit_texts);
+            binding.tvError.setVisibility(View.INVISIBLE);
+        }
+        else{
+            binding.llPassword.setBackgroundResource(R.drawable.error_edit_texts);
+            binding.llCfpassword.setBackgroundResource(R.drawable.error_edit_texts);
+            binding.tvError.setVisibility(View.VISIBLE);
+            result = false;
+        }
+
         return result;
     }
 
