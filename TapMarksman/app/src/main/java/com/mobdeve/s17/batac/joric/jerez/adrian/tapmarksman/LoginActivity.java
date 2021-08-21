@@ -113,11 +113,11 @@ public class LoginActivity extends AppCompatActivity {
     // This method will set the request focus for each image views and text views
     // to their respective edit texts field
     private void setRequestFocus(){
-        binding.ivUsername.setOnClickListener(view -> {
+        binding.ivEmail.setOnClickListener(view -> {
             binding.etEmail.requestFocus();
         });
 
-        binding.tvUsername.setOnClickListener(view -> {
+        binding.tvEmail.setOnClickListener(view -> {
             binding.etEmail.requestFocus();
         });
 

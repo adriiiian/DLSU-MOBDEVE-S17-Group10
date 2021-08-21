@@ -38,6 +38,18 @@
             tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/iv_target"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/target"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintTop_toBottomOf="@+id/cl_upper"
+        app:layout_constraintBottom_toTopOf="@+id/cl_bottom"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_bottom"
         android:orientation="horizontal"
