@@ -14,17 +14,16 @@
         android:padding="8dp"
         android:background="@color/darkblue"
         app:layout_constraintTop_toTopOf="parent">
+
         <Button
-            android:id="@+id/btn_return"
+            android:id="@+id/btn_menu"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="16dp"
-            android:text="Menu"
             app:layout_constraintStart_toStartOf="parent"
             android:textColor="@color/white"
-            android:background="@drawable/game_menu_buttons"
-            tools:ignore="MissingConstraints" />
+            android:background="@drawable/ic_baseline_more_vert_24"
+            tools:ignore="MissingConstraints"
+            android:backgroundTint="@color/black"/>
         <Button
             android:id="@+id/btn_upgrades"
             android:layout_width="60dp"
