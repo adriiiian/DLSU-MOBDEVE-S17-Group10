@@ -14,7 +14,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.databinding.ActivityLoginBinding;
 import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.model.User;
 
@@ -44,9 +43,6 @@ public class LoginActivity extends AppCompatActivity {
         binding.etEmail.setText(sp.getString(SAVE_EMAIL, ""));
         binding.etPassword.setText(sp.getString(SAVE_PASSWORD, ""));
         binding.cbSavepassword.setChecked(sp.getBoolean(SAVE_DETAILS, false));
-
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        updateUI(currentUser);
 
     }
 
@@ -103,9 +99,6 @@ public class LoginActivity extends AppCompatActivity {
 
                             }
                         });
-            }
-            else{
-
             }
         });
     }
@@ -173,7 +166,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onPause();
 
         spEditor = sp.edit();
-//        spEditor.putString(SAVE_PASSWORD, "");
         spEditor.putBoolean(SAVE_DETAILS, binding.cbSavepassword.isChecked());
         spEditor.apply();
     }

@@ -6,12 +6,9 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.PopupMenu;
-import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.databinding.ActivityGameOnlineBinding;
@@ -30,8 +27,18 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         binding = ActivityGameOnlineBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         init();
+    }
 
-        System.out.println(binding.ivTarget.getX());
+    private void init(){
+        mAuth = FirebaseAuth.getInstance();
+        System.out.println(mAuth.getCurrentUser().getEmail());
+
+        binding.btnMenu.setOnClickListener(view -> {
+            PopupMenu popup = new PopupMenu(GameOnlineActivity.this, view);
+            popup.setOnMenuItemClickListener(GameOnlineActivity.this);
+            popup.inflate(R.menu.main_menu);
+            popup.show();
+        });
 
         binding.ivTarget.setOnClickListener(view -> {
             Display display = getWindowManager().getDefaultDisplay();
@@ -47,23 +54,9 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
             animation.start();
             animation2.start();
         });
-
     }
 
-    private void init(){
-        mAuth = FirebaseAuth.getInstance();
-        System.out.println(mAuth.getCurrentUser().getEmail());
-
-
-
-        binding.btnMenu.setOnClickListener(view -> {
-            PopupMenu popup = new PopupMenu(GameOnlineActivity.this, view);
-            popup.setOnMenuItemClickListener(GameOnlineActivity.this);
-            popup.inflate(R.menu.main_menu);
-            popup.show();
-        });
-    }
-
+    // Computes the valid x multiplier for the x coordinate
     private float getX(){
         Random rand = new Random();
 
@@ -75,6 +68,7 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         return result;
     }
 
+    // Computes the valid y multiplier for the x coordinate
     private float getY(){
         Random rand = new Random();
 
@@ -86,6 +80,7 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         return result;
     }
 
+    // Method that handles the more options items list
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch(item.getItemId()){

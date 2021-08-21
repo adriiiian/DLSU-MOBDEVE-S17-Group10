@@ -3,6 +3,7 @@ package com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -12,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private FirebaseAuth mAuth;
+    private MediaPlayer ringer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,11 @@ public class MainActivity extends AppCompatActivity {
             finish();
         });
 
-        // Checking if current user is succesfully logged out
+        // Starts the background music when main activity is started
+        ringer = MediaPlayer.create(MainActivity.this, R.raw.backgroundmusic);
+        ringer.start();
+
+        // Checking if current user is successfully logged out
         mAuth = FirebaseAuth.getInstance();
         if(mAuth.getCurrentUser() == null){
             System.out.println("SUCCESS");
@@ -42,8 +48,12 @@ public class MainActivity extends AppCompatActivity {
         else{
             System.out.println(mAuth.getCurrentUser().getEmail());
         }
+    }
 
-
-
+    // onPause method stops the background music
+    @Override
+    protected void onPause() {
+        super.onPause();
+        ringer.stop();
     }
 }
