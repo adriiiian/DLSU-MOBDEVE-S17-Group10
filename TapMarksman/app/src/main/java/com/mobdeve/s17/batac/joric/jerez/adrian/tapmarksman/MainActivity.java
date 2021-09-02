@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Starts the background music when main activity is started
-        ringer = MediaPlayer.create(MainActivity.this, R.raw.backgroundmusic);
-        ringer.start();
+//        ringer = MediaPlayer.create(MainActivity.this, R.raw.backgroundmusic);
+//        ringer.start();
 
         // Checking if current user is successfully logged out
         mAuth = FirebaseAuth.getInstance();
@@ -51,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // onPause method stops the background music
-    @Override
-    protected void onPause() {
-        super.onPause();
-        ringer.stop();
-    }
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        ringer.stop();
+//    }
 }
