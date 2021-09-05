@@ -6,7 +6,7 @@
                 android:left="2dp"
                 android:top="2dp">
                 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:shape="oval">
+                    android:shape="rectangle">
                     <gradient
                         android:angle="270"
                         android:endColor="@color/black"
@@ -21,11 +21,11 @@
                 android:bottom="2dp"
                 android:right="2dp">
                 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:shape="oval">
+                    android:shape="rectangle">
                     <gradient
                         android:angle="270"
                         android:endColor="@color/black"
-                        android:startColor="@color/darkgreen"/>
+                        android:startColor="@color/darkbluebtns"/>
                     <size
                         android:height="16dp"
                         android:width="16dp"
@@ -41,7 +41,7 @@
             android:left="2dp"
             android:top="2dp">
             <shape xmlns:android="http://schemas.android.com/apk/res/android"
-                android:shape="oval">
+                android:shape="rectangle">
                 <gradient
                     android:angle="270"
                     android:endColor="@color/black"
@@ -56,11 +56,11 @@
         android:bottom="2dp"
         android:right="2dp">
             <shape xmlns:android="http://schemas.android.com/apk/res/android"
-                android:shape="oval">
+                android:shape="rectangle">
                 <gradient
                     android:angle="270"
-                    android:endColor="@color/lightgreen"
-                    android:startColor="@color/lightgreen"/>
+                    android:endColor="@color/darkblue"
+                    android:startColor="@color/darkblue"/>
                 <size
                     android:height="16dp"
                     android:width="16dp"

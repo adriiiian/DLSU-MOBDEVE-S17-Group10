@@ -16,7 +16,7 @@ public class LeaderboardsMenuActivity extends AppCompatActivity {
         binding = ActivityLeaderboardsMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.btnReturn.setOnClickListener(view -> {
+        binding.fabBack.setOnClickListener(view -> {
             Intent intent = new Intent(LeaderboardsMenuActivity.this, MainActivity.class);
             startActivity(intent);
             finish();

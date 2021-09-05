@@ -9,14 +9,13 @@
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="darkblue">#FF202442</color>
-    <color name="darkbluefont">#FF565c89</color>
-    <color name="darkerblue">#FF2c2f47</color>
-    <color name="darkgreybg">#FF6d7575</color>
-    <color name="darkgrey">#FF6d7575</color>
-    <color name="darkgreybtn">#FF3f4040</color>
     <color name="lightgrey">#FF7b8585</color>
     <color name="lightgreen">#FF41cd7d</color>
-    <color name="lighterblue">#FF444483</color>
-    <color name="darkgreen">#FF1a7038</color>
     <color name="red">#FFff0000</color>
+    <color name="lightbluebg">#FF444483</color>
+    <color name="darkbluefont">#FF565c89</color>
+    <color name="darkbluebtns">#FF2c2f47</color>
+    <color name="darkgreybtns">#FF3f4040</color>
+    <color name="darkgreenbtns">#FF1a7038</color>
+
 </resources>

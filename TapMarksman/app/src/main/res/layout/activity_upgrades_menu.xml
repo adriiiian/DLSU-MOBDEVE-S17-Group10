@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@color/lighterblue">
+    android:background="@color/lightbluebg">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_upper2"
         android:orientation="horizontal"

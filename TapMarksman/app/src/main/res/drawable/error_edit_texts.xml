@@ -11,8 +11,8 @@
                         android:height="50dp"/>
                     <gradient
                         android:angle="270"
-                        android:endColor="@color/darkgreybtn"
-                        android:startColor="@color/darkgreybtn"/>
+                        android:endColor="@color/darkgreybtns"
+                        android:startColor="@color/darkgreybtns"/>
                 </shape>
             </item>
             <item
@@ -24,7 +24,7 @@
                         android:width="1dp"
                         android:color="@color/red"/>
                     <solid
-                        android:color="@color/darkerblue"/>
+                        android:color="@color/darkbluebtns"/>
                     <size
                         android:width="330dp"
                         android:height="50dp"/>

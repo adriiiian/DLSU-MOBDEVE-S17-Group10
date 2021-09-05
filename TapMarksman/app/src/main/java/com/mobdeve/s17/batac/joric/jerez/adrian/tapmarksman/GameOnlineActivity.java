@@ -59,6 +59,12 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
             popup.show();
         });
 
+        binding.btnUpgrades.setOnClickListener(view -> {
+            Intent intent = new Intent(GameOnlineActivity.this, UpgradesMenuActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
         // Listener for when the user tap the target
         binding.ivTarget.setOnClickListener(view -> {
             binding.ivTarget.setVisibility(View.GONE);

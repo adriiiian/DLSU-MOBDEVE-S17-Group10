@@ -25,7 +25,7 @@
                     <corners
                         android:radius="8dp"/>
                     <solid
-                        android:color="@color/darkgreen"/>
+                        android:color="@color/darkgreenbtns"/>
                     <size
                         android:width="100dp"
                         android:height="50dp"/>
