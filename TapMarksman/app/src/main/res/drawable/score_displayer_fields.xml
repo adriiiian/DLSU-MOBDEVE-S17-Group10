@@ -2,19 +2,6 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <layer-list>
-            <item>
-                <shape>
-                    <corners
-                        android:radius="8dp"/>
-                    <size
-                        android:width="330sp"
-                        android:height="50dp"/>
-                    <gradient
-                        android:angle="270"
-                        android:endColor="@color/darkgreybtns"
-                        android:startColor="@color/darkgreybtns"/>
-                </shape>
-            </item>
             <item
                 android:bottom="5dp">
                 <shape>
@@ -26,7 +13,7 @@
                     <solid
                         android:color="@color/darkbluebtns"/>
                     <size
-                        android:width="330dp"
+                        android:width="275dp"
                         android:height="50dp"/>
                 </shape>
             </item>

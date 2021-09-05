@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Toast;
 
@@ -42,6 +43,14 @@ public class LoginActivity extends AppCompatActivity {
         binding.etEmail.setText(sp.getString(SAVE_EMAIL, ""));
         binding.etPassword.setText(sp.getString(SAVE_PASSWORD, ""));
         binding.cbSavepassword.setChecked(sp.getBoolean(SAVE_DETAILS, false));
+
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+
+        binding.etEmail.setWidth((int)(width * 0.4));
 
     }
 

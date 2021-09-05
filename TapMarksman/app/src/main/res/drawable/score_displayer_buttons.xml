@@ -10,12 +10,12 @@
                     <corners
                         android:radius="8dp"/>
                     <size
-                        android:width="330dp"
+                        android:width="150dp"
                         android:height="50dp"/>
                     <gradient
                         android:angle="270"
-                        android:endColor="@color/darkgreybtns"
-                        android:startColor="@color/darkgreybtns"/>
+                        android:endColor="@color/black"
+                        android:startColor="@color/black"/>
                 </shape>
             </item>
             <item
@@ -27,7 +27,7 @@
                     <solid
                         android:color="@color/darkgreenbtns"/>
                     <size
-                        android:width="330dp"
+                        android:width="150dp"
                         android:height="50dp"/>
                 </shape>
             </item>
@@ -41,12 +41,12 @@
                     <corners
                         android:radius="15dp"/>
                     <size
-                        android:width="330dp"
+                        android:width="150dp"
                         android:height="50dp"/>
                     <gradient
                         android:angle="270"
-                        android:endColor="@color/darkgreybtns"
-                        android:startColor="@color/darkgreybtns"/>
+                        android:endColor="@color/black"
+                        android:startColor="@color/black"/>
                 </shape>
             </item>
             <item
@@ -57,7 +57,7 @@
                     <solid
                         android:color="@color/lightgreen"/>
                     <size
-                        android:width="330dp"
+                        android:width="150dp"
                         android:height="50dp"/>
                 </shape>
             </item>

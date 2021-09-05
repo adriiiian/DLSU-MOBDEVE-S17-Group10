@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/lightbluebg"
-    tools:context=".SettingsActivity">
+    tools:context=".SettingsOnlineActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_upper"
@@ -48,7 +48,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Easy"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:checked="true"/>
         <RadioButton
             android:id="@+id/rb_medium"
             android:layout_width="match_parent"

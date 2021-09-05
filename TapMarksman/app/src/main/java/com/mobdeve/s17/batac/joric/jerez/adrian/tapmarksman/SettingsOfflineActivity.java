@@ -45,8 +45,7 @@ public class SettingsOfflineActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         spEditor = sp.edit();
-//        spEditor.putInt(SETTINGS_KEY, binding.rgDifficulty.getCheckedRadioButtonId());
-//        spEditor.apply();
+
         if(binding.rbEasy.isChecked()){
             spEditor.putInt(SETTINGS_KEY, binding.rgDifficulty.getCheckedRadioButtonId());
             spEditor.putInt(SETTINGS_SELECTED_KEY, 1);

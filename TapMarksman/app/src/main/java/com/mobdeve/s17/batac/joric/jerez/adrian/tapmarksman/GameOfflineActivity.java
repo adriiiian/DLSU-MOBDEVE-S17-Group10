@@ -31,6 +31,8 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
     private ObjectAnimator animation, animation2;
     private CountDownTimer timer;
     private MediaPlayer ringer;
+    private int scoreCounter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,11 +60,11 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
         // Listener for when the user tap the target
         binding.ivTarget.setOnClickListener(view -> {
             binding.ivTarget.setVisibility(View.GONE);
-            binding.ivGun.setVisibility(View.GONE);
-            binding.vvGun.setVisibility(View.VISIBLE);
             binding.vvGun.start();
             ringer = MediaPlayer.create(GameOfflineActivity.this, R.raw.pistolsound);
             ringer.start();
+            scoreCounter++;
+            binding.tvPtsctr.setText(Integer.toString(scoreCounter));
         });
 
         // Listener for the start game button
@@ -72,13 +74,32 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
             size = new Point();
             x = (float) (size.x * getX());
             y = (float) (size.y * getY());
+
             animation = ObjectAnimator.ofFloat(binding.ivTarget, "X", x);
             animation2 = ObjectAnimator.ofFloat(binding.ivTarget, "Y", y);
             animation.setDuration(0);
             animation2.setDuration(0);
             animation.start();
             animation2.start();
+
             binding.ivTarget.setVisibility(View.VISIBLE);
+            binding.ivGun.setVisibility(View.GONE);
+            binding.vvGun.setVisibility(View.VISIBLE);
+
+            /*
+                Timer for the round.
+
+                Variables:
+                miliSecTotal is the variable that specify how long the round will go.
+                Easy: 120 seconds (4 secs each target, 30 targets)
+                Medium: 90 seconds (3 secs each target, 30 targets)
+                Hard: 30 seconds (1 sec each target, 30 targets)
+
+                countDownInterval is always 1 seconds or 1000 milliseconds
+
+                secDivider is the variable that specify if the target should change its position,
+                depending on the remaining time in our timer.
+             */
             timer = new CountDownTimer(miliSecTotal, 1000){
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -107,6 +128,13 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
                     binding.btnStartGame.setVisibility(View.VISIBLE);
                     binding.ivGun.setVisibility(View.VISIBLE);
                     binding.vvGun.setVisibility(View.GONE);
+
+                    Intent intent = new Intent(GameOfflineActivity.this, ScoreDisplayerActivity.class);
+                    intent.putExtra("targets_killed", scoreCounter);
+                    intent.putExtra("difficulty", Integer.toString(sp.getInt(SettingsOfflineActivity.SETTINGS_SELECTED_KEY, 1)));
+                    startActivity(intent);
+
+                    scoreCounter = 0; // Sets the score counter to 0 after finishing the round.
                 }
             };
 
@@ -117,20 +145,20 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         switch(sp.getInt(SettingsOfflineActivity.SETTINGS_SELECTED_KEY, 1)){
             case 1:
-                miliSecTotal = 120000;
-                secTotal = 124;
+                miliSecTotal = 128000;
+                secTotal = 128;
                 secDivider = 4;
                 break;
 
             case 2:
-                miliSecTotal = 90000;
-                secTotal = 93;
+                miliSecTotal = 96000;
+                secTotal = 96;
                 secDivider = 3;
                 break;
 
             case 3:
-                miliSecTotal = 30000;
-                secTotal = 31;
+                miliSecTotal = 32000;
+                secTotal = 32;
                 secDivider = 1;
                 break;
 
