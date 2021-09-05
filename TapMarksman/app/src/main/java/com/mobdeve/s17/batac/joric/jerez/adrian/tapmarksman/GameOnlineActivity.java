@@ -190,6 +190,6 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
     @Override
     protected void onPause() {
         super.onPause();
-        timer.cancel();
+//        timer.cancel();
     }
 }

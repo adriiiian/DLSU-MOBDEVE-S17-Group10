@@ -4,6 +4,6 @@
         android:id="@+id/action_settings"
         android:title="Settings"/>
     <item
-        android:id="@+id/action_logout"
+        android:id="@+id/action_mainmenu"
         android:title="Main Menu"/>
 </menu>

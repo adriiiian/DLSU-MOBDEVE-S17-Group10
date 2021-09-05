@@ -115,7 +115,7 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
 
         // Shared preference
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        switch(sp.getInt(SettingsActivity.SETTINGS_SELECTED_KEY, 1)){
+        switch(sp.getInt(SettingsOfflineActivity.SETTINGS_SELECTED_KEY, 1)){
             case 1:
                 miliSecTotal = 120000;
                 secTotal = 124;
@@ -163,17 +163,16 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
         return result;
     }
 
-    // Method that handles the more options items list
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         Intent intent;
         switch(item.getItemId()){
             case R.id.action_settings:
-                intent = new Intent(GameOfflineActivity.this, SettingsActivity.class);
+                intent = new Intent(GameOfflineActivity.this, SettingsOfflineActivity.class);
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.action_logout:
+            case R.id.action_mainmenu:
                 intent = new Intent(GameOfflineActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -185,6 +184,6 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
     @Override
     protected void onPause() {
         super.onPause();
-        timer.cancel();
+//        timer.cancel();
     }
 }

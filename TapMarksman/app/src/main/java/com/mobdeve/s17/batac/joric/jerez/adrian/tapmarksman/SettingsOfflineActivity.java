@@ -7,27 +7,27 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
-import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.databinding.ActivitySettingsBinding;
+import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.databinding.ActivitySettingsOfflineBinding;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsOfflineActivity extends AppCompatActivity {
 
-    public static final String SETTINGS_KEY = "SETTINGS_KEY";
-    public static final String SETTINGS_SELECTED_KEY = "SETTINGS_SELECTED_KEY";
-    ActivitySettingsBinding binding;
+    public static final String SETTINGS_KEY = "SETTINGS_KEY_OFFLINE";
+    public static final String SETTINGS_SELECTED_KEY = "SETTINGS_SELECTED_KEY_OFFLINE";
+    private ActivitySettingsOfflineBinding binding;
 
     private SharedPreferences sp;
     private SharedPreferences.Editor spEditor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivitySettingsBinding.inflate(getLayoutInflater());
+        binding = ActivitySettingsOfflineBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         binding.rgDifficulty.check(sp.getInt(SETTINGS_KEY, binding.rbEasy.getId()));
 
         binding.btnSave.setOnClickListener(view -> {
-            Intent intent = new Intent(SettingsActivity.this, GameOnlineActivity.class);
+            Intent intent = new Intent(SettingsOfflineActivity.this, GameOfflineActivity.class);
             startActivity(intent);
             finish();
         });
@@ -36,7 +36,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(SettingsActivity.this, GameOnlineActivity.class);
+        Intent intent = new Intent(SettingsOfflineActivity.this, GameOfflineActivity.class);
         startActivity(intent);
         finish();
     }
@@ -61,6 +61,5 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         spEditor.apply();
-
     }
 }
