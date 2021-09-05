@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setRequestFocus();
+//        setRequestFocus();
         init();
 
         binding.etEmail.setText(sp.getString(SAVE_EMAIL, ""));
