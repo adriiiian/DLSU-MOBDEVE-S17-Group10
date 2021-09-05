@@ -22,6 +22,13 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Listener to go to offline game
+        binding.btnOffline.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, GameOfflineActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
         // Listener to go to signup page
         binding.btnCreateaccount.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, SignUpActivity.class);

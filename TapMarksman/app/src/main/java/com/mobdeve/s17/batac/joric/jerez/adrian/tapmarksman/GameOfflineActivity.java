@@ -1,5 +1,7 @@
 package com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,17 +16,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.databinding.ActivityGameOnlineBinding;
+import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.databinding.ActivityGameOfflineBinding;
 
 import java.util.Random;
 
-public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener{
+public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
-    private ActivityGameOnlineBinding binding;
-    private FirebaseAuth mAuth;
+    private ActivityGameOfflineBinding binding;
     private SharedPreferences sp;
     private int miliSecTotal = 0, secTotal = 0, secDivider = 0;
     private Display display;
@@ -33,18 +31,16 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
     private ObjectAnimator animation, animation2;
     private CountDownTimer timer;
     private MediaPlayer ringer;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        binding = ActivityGameOnlineBinding.inflate(getLayoutInflater());
+        binding = ActivityGameOfflineBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         init();
     }
 
     private void init(){
-        mAuth = FirebaseAuth.getInstance();
 
         // Setting video to video view
         Uri uri = Uri.parse("android.resource://com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman/" + R.raw.pistol);
@@ -53,9 +49,9 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
 
         // Listener for the menu popup
         binding.btnMenu.setOnClickListener(view -> {
-            PopupMenu popup = new PopupMenu(GameOnlineActivity.this, view);
-            popup.setOnMenuItemClickListener(GameOnlineActivity.this);
-            popup.inflate(R.menu.menu_online);
+            PopupMenu popup = new PopupMenu(GameOfflineActivity.this, view);
+            popup.setOnMenuItemClickListener(GameOfflineActivity.this);
+            popup.inflate(R.menu.menu_offline);
             popup.show();
         });
 
@@ -65,7 +61,7 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
             binding.ivGun.setVisibility(View.GONE);
             binding.vvGun.setVisibility(View.VISIBLE);
             binding.vvGun.start();
-            ringer = MediaPlayer.create(GameOnlineActivity.this, R.raw.pistolsound);
+            ringer = MediaPlayer.create(GameOfflineActivity.this, R.raw.pistolsound);
             ringer.start();
         });
 
@@ -173,14 +169,13 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         Intent intent;
         switch(item.getItemId()){
             case R.id.action_settings:
-                intent = new Intent(GameOnlineActivity.this, SettingsActivity.class);
+                intent = new Intent(GameOfflineActivity.this, SettingsActivity.class);
                 startActivity(intent);
                 finish();
                 break;
             case R.id.action_logout:
-                intent = new Intent(GameOnlineActivity.this, LoginActivity.class);
+                intent = new Intent(GameOfflineActivity.this, MainActivity.class);
                 startActivity(intent);
-                mAuth.signOut();
                 finish();
                 break;
         }
