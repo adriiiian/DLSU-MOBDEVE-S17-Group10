@@ -26,7 +26,6 @@ public class LoginActivity extends AppCompatActivity {
     static public final String SAVE_PASSWORD = "SAVE_PASSWORD";
 
     private ActivityLoginBinding binding;
-    private ArrayList<User> users;
     private FirebaseAuth mAuth;
     private SharedPreferences sp;
     private SharedPreferences.Editor spEditor;

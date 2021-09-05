@@ -36,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
             finish();
         });
 
+        // Listener to go to leaderboards page
+        binding.btnLeaderboards.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, LeaderboardsMenuActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
         // Starts the background music when main activity is started
 //        ringer = MediaPlayer.create(MainActivity.this, R.raw.backgroundmusic);
 //        ringer.start();
