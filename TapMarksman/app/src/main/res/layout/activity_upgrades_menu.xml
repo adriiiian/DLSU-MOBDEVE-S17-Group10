@@ -69,6 +69,7 @@
                     android:textStyle="bold"
                     android:background="@drawable/upgrade_name_holder"/>
                 <Button
+                    android:id="@+id/btn_pistol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
@@ -91,6 +92,7 @@
                     android:textStyle="bold"
                     android:background="@drawable/upgrade_name_holder"/>
                 <Button
+                    android:id="@+id/btn_revolver"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
@@ -114,6 +116,7 @@
                     android:background="@drawable/upgrade_name_holder"/>
 
                 <Button
+                    android:id="@+id/btn_deserteagle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
@@ -136,6 +139,7 @@
                     android:textStyle="bold"
                     android:background="@drawable/upgrade_name_holder"/>
                 <Button
+                    android:id="@+id/btn_rifle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
@@ -172,6 +176,7 @@
                     android:textStyle="bold"
                     android:background="@drawable/upgrade_name_holder"/>
                 <Button
+                    android:id="@+id/btn_damage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
@@ -195,6 +200,7 @@
                     android:textStyle="bold"
                     android:background="@drawable/upgrade_name_holder"/>
                 <Button
+                    android:id="@+id/btn_power"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
@@ -217,6 +223,7 @@
                     android:textStyle="bold"
                     android:background="@drawable/upgrade_name_holder"/>
                 <Button
+                    android:id="@+id/btn_control"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
@@ -284,7 +291,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="12dp"
             app:layout_constraintEnd_toStartOf="@id/tv_ptsctr2"
-            android:text="Points"
+            android:text="Game Points"
             android:textColor="@color/darkbluefont"
             android:textSize="24dp"
             tools:ignore="MissingConstraints" />

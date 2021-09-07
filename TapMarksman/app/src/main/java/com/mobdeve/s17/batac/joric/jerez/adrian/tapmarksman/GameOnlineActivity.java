@@ -17,7 +17,10 @@ import android.widget.PopupMenu;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.dao.UserDAO;
+import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.dao.UserDAOFirebaseImpl;
 import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.databinding.ActivityGameOnlineBinding;
+import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.model.User;
 
 import java.util.Random;
 
@@ -25,7 +28,6 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
 
     private ActivityGameOnlineBinding binding;
     private FirebaseAuth mAuth;
-    private SharedPreferences sp;
     private int miliSecTotal = 0, secTotal = 0, secDivider = 0;
     private Display display;
     private Point size;
@@ -34,14 +36,24 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
     private CountDownTimer timer;
     private MediaPlayer ringer;
     private int scoreCounter;
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityGameOnlineBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        init();
+        UserDAO userDAO = new UserDAOFirebaseImpl();
+
+        userDAO.getUser(new FirebaseCallback(){
+            @Override
+            public void onCallBack(User user) {
+                currentUser = user;
+                setContentView(binding.getRoot());
+                init();
+            }
+        });
+
     }
 
     private void init(){
@@ -64,6 +76,20 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         // Listener for the upgrades menu button
         binding.btnUpgrades.setOnClickListener(view -> {
             Intent intent = new Intent(GameOnlineActivity.this, UpgradesMenuActivity.class);
+            intent.putExtra("pistol", currentUser.getOwnedPistol());
+            intent.putExtra("revolver", currentUser.getOwnedRevolver());
+            intent.putExtra("deserteagle", currentUser.getOwnedDesertEagle());
+            intent.putExtra("rifle", currentUser.getOwnedRifle());
+            intent.putExtra("damagectr", currentUser.getDamageUpgradeCounter());
+            intent.putExtra("powerctr", currentUser.getPowerUpgradeCounter());
+            intent.putExtra("controlctr", currentUser.getControlUpgradeCounter());
+            intent.putExtra("points", currentUser.getPoints());
+            intent.putExtra("email", currentUser.getUserEmail());
+            intent.putExtra("username", currentUser.getUserName());
+            intent.putExtra("password", currentUser.getUserPassword());
+            intent.putExtra("multiplier", currentUser.getMultiplier());
+            intent.putExtra("difficulty", currentUser.getDifficulty());
+            intent.putExtra("equipedGun", currentUser.getEquipedGun());
             startActivity(intent);
             finish();
         });
@@ -115,6 +141,9 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
 
                         binding.ivTarget.setVisibility(View.VISIBLE);
                         binding.tvTargetRemainingCtr.setText(millisUntilFinished/(secDivider*1000) + "");
+                        if(currentUser.getDifficulty().equalsIgnoreCase("Hard") && (millisUntilFinished/(secDivider*1000)) > 31){
+                            binding.tvTargetRemainingCtr.setText("30");
+                        }
                     }
                     else if((secTotal - (millisUntilFinished/500)) % 2 == 1){
                         ringer.release();
@@ -130,7 +159,9 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
 
                     Intent intent = new Intent(GameOnlineActivity.this, ScoreDisplayerActivity.class);
                     intent.putExtra("targets_killed", scoreCounter);
-                    intent.putExtra("difficulty", Integer.toString(sp.getInt(SettingsOnlineActivity.SETTINGS_SELECTED_KEY, 1)));
+                    intent.putExtra("difficulty", currentUser.getDifficulty());
+                    intent.putExtra("multiplier", currentUser.getMultiplier());
+                    intent.putExtra("gamepoints", currentUser.getPoints());
                     startActivity(intent);
 
                     scoreCounter = 0; // Sets the score counter to 0 after finishing the round.
@@ -140,22 +171,20 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
             timer.start();
         });
 
-        // Shared preference
-        sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        switch(sp.getInt(SettingsOnlineActivity.SETTINGS_SELECTED_KEY, 1)){
-            case 1:
-                miliSecTotal = 128000;
-                secTotal = 128;
+        switch(currentUser.getDifficulty()){
+            case "Easy":
+                miliSecTotal = 125000;
+                secTotal = 125;
                 secDivider = 4;
                 break;
 
-            case 2:
-                miliSecTotal = 96000;
-                secTotal = 96;
+            case "Medium":
+                miliSecTotal = 94000;
+                secTotal = 94;
                 secDivider = 3;
                 break;
 
-            case 3:
+            case "Hard":
                 miliSecTotal = 32000;
                 secTotal = 32;
                 secDivider = 1;
@@ -163,7 +192,32 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
 
             default:
                 break;
+
         }
+        // Shared preference
+//        sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+//        switch(sp.getInt(SettingsOnlineActivity.SETTINGS_SELECTED_KEY, 1)){
+//            case 1:
+//                miliSecTotal = 124000;
+//                secTotal = 124;
+//                secDivider = 4;
+//                break;
+//
+//            case 2:
+//                miliSecTotal = 93000;
+//                secTotal = 93;
+//                secDivider = 3;
+//                break;
+//
+//            case 3:
+//                miliSecTotal = 31000;
+//                secTotal = 31;
+//                secDivider = 1;
+//                break;
+//
+//            default:
+//                break;
+//        }
     }
 
     // Computes the valid x multiplier for the x coordinate
@@ -197,6 +251,7 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         switch(item.getItemId()){
             case R.id.action_settings:
                 intent = new Intent(GameOnlineActivity.this, SettingsOnlineActivity.class);
+                intent.putExtra("difficulty", currentUser.getDifficulty());
                 startActivity(intent);
                 finish();
                 break;
@@ -213,6 +268,9 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
     @Override
     protected void onPause() {
         super.onPause();
+        if(timer != null){
+            timer.cancel();
+        }
 //        timer.cancel();
     }
 }

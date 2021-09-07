@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-//        setRequestFocus();
+        setRequestFocus();
         init();
 
         binding.etEmail.setText(sp.getString(SAVE_EMAIL, ""));
@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                                     finish();
                                 }
                                 else{
-                                    Toast.makeText(getApplicationContext(), "Incorrect username and or password", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Incorrect email and or password", Toast.LENGTH_LONG).show();
                                 }
 
                             }

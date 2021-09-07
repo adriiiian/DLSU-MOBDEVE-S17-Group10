@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.databinding.ActivityGameOfflineBinding;
 
 import java.util.Random;
@@ -32,6 +33,7 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
     private CountDownTimer timer;
     private MediaPlayer ringer;
     private int scoreCounter;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,8 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
 
     private void init(){
 
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
         // Setting video to video view
         Uri uri = Uri.parse("android.resource://com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman/" + R.raw.pistol);
         binding.vvGun.setVideoURI(uri);
@@ -119,6 +123,9 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
 
                         binding.ivTarget.setVisibility(View.VISIBLE);
                         binding.tvTargetRemainingCtr.setText(millisUntilFinished/(secDivider*1000) + "");
+                        if(sp.getInt(SettingsOfflineActivity.SETTINGS_SELECTED_KEY, 1) == 3 && (millisUntilFinished/(secDivider*1000)) > 31){
+                            binding.tvTargetRemainingCtr.setText("30");
+                        }
                     }
                 }
 
@@ -145,13 +152,13 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         switch(sp.getInt(SettingsOfflineActivity.SETTINGS_SELECTED_KEY, 1)){
             case 1:
-                miliSecTotal = 128000;
+                miliSecTotal = 125000;
                 secTotal = 128;
                 secDivider = 4;
                 break;
 
             case 2:
-                miliSecTotal = 96000;
+                miliSecTotal = 94000;
                 secTotal = 96;
                 secDivider = 3;
                 break;

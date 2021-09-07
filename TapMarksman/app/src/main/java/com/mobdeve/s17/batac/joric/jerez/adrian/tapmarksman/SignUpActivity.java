@@ -61,6 +61,17 @@ public class SignUpActivity extends AppCompatActivity {
                     user.setUserName(binding.etUsername.getText().toString());
                     user.setUserEmail(binding.etEmail.getText().toString());
                     user.setUserPassword(binding.etPassword.getText().toString());
+                    user.setOwnedPistol(true);
+                    user.setOwnedRevolver(false);
+                    user.setOwnedDesertEagle(false);
+                    user.setOwnedRifle(false);
+                    user.setDamageUpgradeCounter(0);
+                    user.setPowerUpgradeCounter(0);
+                    user.setControlUpgradeCounter(0);
+                    user.setPoints(0);
+                    user.setMultiplier(1);
+                    user.setDifficulty("Easy");
+                    user.setEquipedGun("Pistol");
 
                     // Code for user authentication and adding to firebase database
                     mAuth.createUserWithEmailAndPassword(user.getUserEmail(), user.getUserPassword()).addOnCompleteListener(
