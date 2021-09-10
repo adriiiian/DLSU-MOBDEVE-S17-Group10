@@ -82,17 +82,18 @@
         app:layout_constraintLeft_toRightOf="@id/gl_ver2"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constrainedWidth="true"
         app:layout_constraintTop_toBottomOf="@+id/gl_hor3"
-        app:layout_constraintRight_toRightOf="@id/gl_ver2"
-        app:layout_constraintLeft_toLeftOf="@id/gl_ver3"
+        app:layout_constraintRight_toLeftOf="@id/gl_ver3"
+        app:layout_constraintLeft_toRightOf="@id/gl_ver2"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/ll_email"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/signup_login_edit_texts"
             android:orientation="horizontal"

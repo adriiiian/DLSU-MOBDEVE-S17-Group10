@@ -32,7 +32,7 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
     private float x, y;
     private ObjectAnimator animation, animation2;
     private CountDownTimer timer;
-    private MediaPlayer ringer;
+    private MediaPlayer ringer, ringerBG;
     private int scoreCounter;
     private User currentUser;
 
@@ -57,6 +57,9 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
     private void init(){
         mAuth = FirebaseAuth.getInstance();
         scoreCounter = 0; // Sets the score counter to 0
+
+        ringerBG = MediaPlayer.create(GameOnlineActivity.this, R.raw.ingame_bg_music);
+        ringerBG.start();
 
         Uri uri = null;
         // Setting image and video to their specific views
@@ -164,9 +167,6 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
                             binding.tvTargetRemainingCtr.setText("30");
                         }
                     }
-//                    else if((secTotal - (millisUntilFinished/500)) % 2 == 1){
-//                        ringer.release();
-//                    }
                 }
 
                 @Override
@@ -214,30 +214,6 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
                 break;
 
         }
-        // Shared preference
-//        sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-//        switch(sp.getInt(SettingsOnlineActivity.SETTINGS_SELECTED_KEY, 1)){
-//            case 1:
-//                miliSecTotal = 124000;
-//                secTotal = 124;
-//                secDivider = 4;
-//                break;
-//
-//            case 2:
-//                miliSecTotal = 93000;
-//                secTotal = 93;
-//                secDivider = 3;
-//                break;
-//
-//            case 3:
-//                miliSecTotal = 31000;
-//                secTotal = 31;
-//                secDivider = 1;
-//                break;
-//
-//            default:
-//                break;
-//        }
     }
 
     // Computes the valid x multiplier for the x coordinate
@@ -291,6 +267,8 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         if(timer != null){
             timer.cancel();
         }
+
+        ringerBG.stop();
 //        timer.cancel();
     }
 }

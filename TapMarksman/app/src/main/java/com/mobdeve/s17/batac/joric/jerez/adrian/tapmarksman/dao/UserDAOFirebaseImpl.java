@@ -83,7 +83,6 @@ public class UserDAOFirebaseImpl implements UserDAO{
                         temp.setHighestScore(Integer.valueOf(user.child("highestScore").getValue().toString()));
 
                         users.add(temp);
-                        System.out.println(users.get(0).getUserName());
 
                     }
                     firebaseLeaderboardCallback.onCallBack(users);

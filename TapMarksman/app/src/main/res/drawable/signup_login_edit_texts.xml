@@ -7,8 +7,8 @@
                     <corners
                         android:radius="8dp"/>
                     <size
-                        android:width="330sp"
-                        android:height="50dp"/>
+                        android:width="0dp"
+                        android:height="40dp"/>
                     <gradient
                         android:angle="270"
                         android:endColor="@color/darkgreybtns"
@@ -26,8 +26,8 @@
                     <solid
                         android:color="@color/darkbluebtns"/>
                     <size
-                        android:width="330dp"
-                        android:height="50dp"/>
+                        android:width="0dp"
+                        android:height="40dp"/>
                 </shape>
             </item>
         </layer-list>

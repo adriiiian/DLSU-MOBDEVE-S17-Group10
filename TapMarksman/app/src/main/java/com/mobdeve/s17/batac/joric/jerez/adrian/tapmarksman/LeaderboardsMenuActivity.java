@@ -27,11 +27,11 @@ public class LeaderboardsMenuActivity extends AppCompatActivity {
         binding = ActivityLeaderboardsMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         UserDAO userDAO = new UserDAOFirebaseImpl();
-        usersTop10 = new ArrayList<User>();
+        usersTop10 = new ArrayList<>();
         userDAO.getUsers(new FirebaseLeaderboardCallback() {
             @Override
             public void onCallBack(ArrayList<User> users) {
-//                Collections.sort(users, User.UserComparator);
+                Collections.sort(users, User.UserComparator);
 
                 if(users.size() > 10){
                     for(int i = 0; i < 10; i ++){
@@ -39,10 +39,9 @@ public class LeaderboardsMenuActivity extends AppCompatActivity {
                     }
                 }
                 else{
-                    usersTop10 = users;
+                    usersTop10.addAll(users);
+//                    System.out.println(Integer.toString(usersTop10.get(2).getHighestScore()));
                 }
-
-                System.out.println(users.get(0).getHighestScore());
 
                 leaderboardsAdapter = new LeaderboardsAdapter(getApplicationContext(), usersTop10);
                 binding.rvData.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
