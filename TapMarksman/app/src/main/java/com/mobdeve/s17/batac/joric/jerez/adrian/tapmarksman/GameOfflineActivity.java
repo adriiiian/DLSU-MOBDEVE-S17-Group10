@@ -144,7 +144,7 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
                     binding.btnStartGame.setVisibility(View.VISIBLE);
                     binding.ivGun.setVisibility(View.VISIBLE);
                     binding.vvGun.setVisibility(View.GONE);
-                    binding.tvTargetRemainingCtr.setText(0);
+                    binding.tvTargetRemainingCtr.setText(Integer.toString(0));
 
                     Intent intent = new Intent(GameOfflineActivity.this, ScoreDisplayerActivity.class);
                     intent.putExtra("targets_killed", scoreCounter);

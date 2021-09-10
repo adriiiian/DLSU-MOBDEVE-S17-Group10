@@ -176,7 +176,7 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
                     binding.btnStartGame.setVisibility(View.VISIBLE);
                     binding.ivGun.setVisibility(View.VISIBLE);
                     binding.vvGun.setVisibility(View.GONE);
-                    binding.tvTargetRemainingCtr.setText(0);
+                    binding.tvTargetRemainingCtr.setText(Integer.toString(0));
 
                     Intent intent = new Intent(GameOnlineActivity.this, ScoreDisplayerActivity.class);
                     intent.putExtra("targets_killed", scoreCounter);
