@@ -31,7 +31,7 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
     private float x, y;
     private ObjectAnimator animation, animation2;
     private CountDownTimer timer;
-    private MediaPlayer ringer;
+    private MediaPlayer ringer, ringerBG;
     private int scoreCounter;
     private FirebaseAuth mAuth;
 
@@ -45,15 +45,21 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
     }
 
     private void init(){
-
         mAuth = FirebaseAuth.getInstance();
         if(mAuth.getCurrentUser() != null){
             mAuth.signOut();
         }
-        // Setting video to video view
+
+        scoreCounter = 0;
+
+        ringerBG = MediaPlayer.create(GameOfflineActivity.this, R.raw.ingame_bg_music);
+        ringerBG.start();
+
+        // Setting image and video to their specific views
         Uri uri = Uri.parse("android.resource://com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman/" + R.raw.pistol);
         binding.vvGun.setVideoURI(uri);
         binding.vvGun.requestFocus();
+        ringer = MediaPlayer.create(GameOfflineActivity.this, R.raw.pistol_sound);
 
         // Listener for the menu popup
         binding.btnMenu.setOnClickListener(view -> {
@@ -67,7 +73,6 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
         binding.ivTarget.setOnClickListener(view -> {
             binding.ivTarget.setVisibility(View.GONE);
             binding.vvGun.start();
-            ringer = MediaPlayer.create(GameOfflineActivity.this, R.raw.pistol_sound);
             ringer.start();
             scoreCounter++;
             binding.tvPtsctr.setText(Integer.toString(scoreCounter));
@@ -109,8 +114,16 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
             timer = new CountDownTimer(miliSecTotal, 1000){
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    if((secTotal - (millisUntilFinished/1000)) % secDivider == 0){
+                    if((secTotal - (millisUntilFinished/1000)) % secDivider == 1){
+                        binding.ivTarget.setVisibility(View.VISIBLE);
+                        if(sp.getInt(SettingsOfflineActivity.SETTINGS_SELECTED_KEY, 1) == 3 && (millisUntilFinished/(secDivider*1000)) > 31){
+                            binding.tvTargetRemainingCtr.setText("30");
+                        }
+                    }
+                    else if((secTotal - (millisUntilFinished/1000)) % secDivider == 0){
+                        binding.ivTarget.setVisibility(View.GONE);
                         display = getWindowManager().getDefaultDisplay();
+                        binding.tvTargetRemainingCtr.setText(millisUntilFinished/(secDivider*1000) + "");
                         size = new Point();
                         display.getSize(size);
                         x = (float) (size.x * getX());
@@ -122,12 +135,6 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
                         animation2.setDuration(0);
                         animation.start();
                         animation2.start();
-
-                        binding.ivTarget.setVisibility(View.VISIBLE);
-                        binding.tvTargetRemainingCtr.setText(millisUntilFinished/(secDivider*1000) + "");
-                        if(sp.getInt(SettingsOfflineActivity.SETTINGS_SELECTED_KEY, 1) == 3 && (millisUntilFinished/(secDivider*1000)) > 31){
-                            binding.tvTargetRemainingCtr.setText("30");
-                        }
                     }
                 }
 
@@ -137,6 +144,7 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
                     binding.btnStartGame.setVisibility(View.VISIBLE);
                     binding.ivGun.setVisibility(View.VISIBLE);
                     binding.vvGun.setVisibility(View.GONE);
+                    binding.tvTargetRemainingCtr.setText(0);
 
                     Intent intent = new Intent(GameOfflineActivity.this, ScoreDisplayerActivity.class);
                     intent.putExtra("targets_killed", scoreCounter);
@@ -154,21 +162,21 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         switch(sp.getInt(SettingsOfflineActivity.SETTINGS_SELECTED_KEY, 1)){
             case 1:
-                miliSecTotal = 125000;
-                secTotal = 125;
-                secDivider = 4;
+                miliSecTotal = 180000;
+                secTotal = 180;
+                secDivider = 6;
                 break;
 
             case 2:
-                miliSecTotal = 94000;
-                secTotal = 94;
-                secDivider = 3;
+                miliSecTotal = 120000;
+                secTotal = 120;
+                secDivider = 4;
                 break;
 
             case 3:
-                miliSecTotal = 32000;
-                secTotal = 32;
-                secDivider = 1;
+                miliSecTotal = 60000;
+                secTotal = 60;
+                secDivider = 2;
                 break;
 
             default:
@@ -181,7 +189,7 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
         Random rand = new Random();
 
         float result = rand.nextFloat();
-        while(result > 0.775){
+        while(result > 0.75 || result < 0.05){
             result = rand.nextFloat();
         }
 
@@ -193,7 +201,7 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
         Random rand = new Random();
 
         float result = rand.nextFloat();
-        while(result > 0.5 || result < 0.1){
+        while(result > 0.45 || result < 0.15){
             result = rand.nextFloat();
         }
 
@@ -221,6 +229,7 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
     @Override
     protected void onPause() {
         super.onPause();
+        ringerBG.stop();
 //        timer.cancel();
     }
 }

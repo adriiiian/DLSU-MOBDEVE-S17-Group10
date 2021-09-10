@@ -122,6 +122,7 @@
                     android:id="@+id/et_username"
                     android:layout_width="280dp"
                     android:layout_height="35dp"
+                    android:hint="Username"
                     android:textColor="@color/white"
                     android:background="@color/transparent"/>
             </LinearLayout>
@@ -159,6 +160,7 @@
                     android:id="@+id/et_email"
                     android:layout_width="280dp"
                     android:layout_height="35dp"
+                    android:hint="Google email address"
                     android:textColor="@color/white"
                     android:background="@color/transparent"/>
             </LinearLayout>
@@ -196,6 +198,7 @@
                     android:id="@+id/et_password"
                     android:layout_width="280dp"
                     android:layout_height="35dp"
+                    android:hint="Password (6 characters)"
                     android:textColor="@color/white"
                     android:background="@color/transparent"
                     android:inputType="textPassword"/>
@@ -234,6 +237,7 @@
                     android:id="@+id/et_cfpassword"
                     android:layout_width="280dp"
                     android:layout_height="35dp"
+                    android:hint="Password (6 characters)"
                     android:textColor="@color/white"
                     android:background="@color/transparent"
                     android:inputType="textPassword"/>

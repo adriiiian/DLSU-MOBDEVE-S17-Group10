@@ -6,6 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:background="@color/lightbluebg">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.075"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.925"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.85"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_upper2"
         android:orientation="horizontal"
@@ -28,7 +50,10 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
     <LinearLayout
         app:layout_constraintTop_toBottomOf="@id/cl_upper2"
-        android:layout_width="match_parent"
+        app:layout_constraintLeft_toRightOf="@id/gl_left"
+        app:layout_constraintRight_toLeftOf="@id/gl_right"
+        app:layout_constrainedWidth="true"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <LinearLayout
@@ -58,94 +83,114 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:weightSum="10">
                 <TextView
                     android:layout_marginLeft="12dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_width="240dp"
-                    android:layout_height="50dp"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="7"
                     android:text="Pistol"
-                    android:textSize="24dp"
+                    android:paddingLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     android:background="@drawable/upgrade_name_holder"/>
                 <Button
                     android:id="@+id/btn_pistol"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
+                    android:layout_weight="3"
                     android:text="OWNED"
-                    android:textSize="24dp"
+                    android:textSize="18sp"
                     android:background="@drawable/purchase_button"/>
             </LinearLayout>
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:weightSum="10">
                 <TextView
                     android:layout_marginLeft="12dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_width="240dp"
-                    android:layout_height="50dp"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="7"
                     android:text="Revolver"
-                    android:textSize="24dp"
+                    android:paddingLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     android:background="@drawable/upgrade_name_holder"/>
                 <Button
                     android:id="@+id/btn_revolver"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
+                    android:layout_weight="3"
                     android:text="250"
-                    android:textSize="24dp"
+                    android:textSize="18sp"
                     android:background="@drawable/purchase_button"/>
             </LinearLayout>
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:weightSum="10">
                 <TextView
                     android:layout_marginLeft="12dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_width="240dp"
-                    android:layout_height="50dp"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="7"
                     android:text="Desert Eagle"
-                    android:textSize="24dp"
+                    android:paddingLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     android:background="@drawable/upgrade_name_holder"/>
 
                 <Button
                     android:id="@+id/btn_deserteagle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
+                    android:layout_weight="3"
                     android:text="750"
-                    android:textSize="24dp"
+                    android:textSize="18sp"
                     android:background="@drawable/purchase_button"/>
             </LinearLayout>
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:weightSum="10">
                 <TextView
                     android:layout_marginLeft="12dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_width="240dp"
-                    android:layout_height="50dp"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="7"
                     android:text="Rifle"
-                    android:textSize="24dp"
+                    android:paddingLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     android:background="@drawable/upgrade_name_holder"/>
                 <Button
                     android:id="@+id/btn_rifle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
+                    android:layout_weight="3"
                     android:text="2000"
-                    android:textSize="24dp"
+                    android:textSize="18sp"
                     android:background="@drawable/purchase_button"/>
             </LinearLayout>
         </LinearLayout>
@@ -165,71 +210,87 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:weightSum="10">
                 <TextView
                     android:layout_marginLeft="12dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_width="240dp"
-                    android:layout_height="50dp"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="7"
                     android:text="Damage"
-                    android:textSize="24dp"
+                    android:paddingLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     android:background="@drawable/upgrade_name_holder"/>
+
                 <Button
                     android:id="@+id/btn_damage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
+                    android:layout_weight="3"
+                    android:background="@drawable/purchase_button"
                     android:text="25"
-                    android:textSize="24dp"
-                    android:background="@drawable/purchase_button"/>
+                    android:textSize="18sp" />
 
             </LinearLayout>
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:weightSum="10">
                 <TextView
                     android:layout_marginLeft="12dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_width="240dp"
-                    android:layout_height="50dp"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="7"
                     android:text="Power"
-                    android:textSize="24dp"
+                    android:paddingLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     android:background="@drawable/upgrade_name_holder"/>
                 <Button
                     android:id="@+id/btn_power"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
+                    android:layout_weight="3"
                     android:text="25"
-                    android:textSize="24dp"
+                    android:textSize="18sp"
                     android:background="@drawable/purchase_button"/>
             </LinearLayout>
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:weightSum="10">
                 <TextView
                     android:layout_marginLeft="12dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_width="240dp"
-                    android:layout_height="50dp"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="7"
                     android:text="Control"
-                    android:textSize="24dp"
+                    android:paddingLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     android:background="@drawable/upgrade_name_holder"/>
                 <Button
                     android:id="@+id/btn_control"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
+                    android:layout_weight="3"
                     android:text="25"
-                    android:textSize="24dp"
+                    android:textSize="18sp"
                     android:background="@drawable/purchase_button"/>
             </LinearLayout>
 
@@ -238,11 +299,14 @@
     <LinearLayout
         android:id="@+id/cl_multiplier"
         android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@id/cl_bottom2">
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toTopOf="@id/cl_bottom2"
+        app:layout_constraintLeft_toRightOf="@id/gl_left"
+        app:layout_constraintRight_toLeftOf="@id/gl_right">
         <TextView
             android:id="@+id/tv_multi"
             app:layout_constraintTop_toTopOf="parent"
@@ -253,11 +317,11 @@
             android:text="Multiplier"
             android:textStyle="bold"
             android:textColor="@color/white"
-            android:textSize="24dp" />
+            android:textSize="22dp" />
         <TextView
             android:id="@+id/tv_multinum"
             android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:gravity="center"
             android:textSize="24dp"
             android:textColor="@color/white"

@@ -10,7 +10,7 @@
                     <corners
                         android:radius="8dp"/>
                     <size
-                        android:width="275dp"
+                        android:width="0dp"
                         android:height="50dp"/>
                     <gradient
                         android:angle="270"
@@ -19,20 +19,15 @@
                 </shape>
             </item>
             <item
-                android:bottom="4dp"
-                android:right="4dp">
+                android:bottom="5dp"
+                android:right="5dp">
                 <shape>
                     <solid
                         android:color="@color/lightgrey"/>
                     <corners
                         android:radius="8dp" />
-                    <padding
-                        android:bottom="10dp"
-                        android:left="10dp"
-                        android:right="10dp"
-                        android:top="10dp" />
                     <size
-                        android:width="275dp"
+                        android:width="0dp"
                         android:height="50dp"/>
                 </shape>
             </item>

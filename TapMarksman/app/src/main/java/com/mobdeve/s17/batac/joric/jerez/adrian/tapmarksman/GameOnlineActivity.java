@@ -120,7 +120,6 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         binding.ivTarget.setOnClickListener(view -> {
             binding.ivTarget.setVisibility(View.GONE);
             binding.vvGun.start();
-//            ringer = MediaPlayer.create(GameOnlineActivity.this, R.raw.pistolsound);
             ringer.start();
             scoreCounter++;
             binding.tvPtsctr.setText(Integer.toString(scoreCounter));
@@ -147,8 +146,16 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
             timer = new CountDownTimer(miliSecTotal, 1000){
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    if((secTotal - (millisUntilFinished/1000)) % secDivider == 0){
+                    if((secTotal - (millisUntilFinished/1000)) % secDivider == 1){
+                        binding.ivTarget.setVisibility(View.VISIBLE);
+                        if(currentUser.getDifficulty().equalsIgnoreCase("Hard") && (millisUntilFinished/(secDivider*1000)) > 31){
+                            binding.tvTargetRemainingCtr.setText("30");
+                        }
+                    }
+                    else if((secTotal - (millisUntilFinished/1000)) % secDivider == 0){
+                        binding.ivTarget.setVisibility(View.GONE);
                         display = getWindowManager().getDefaultDisplay();
+                        binding.tvTargetRemainingCtr.setText(millisUntilFinished/(secDivider*1000) + "");
                         size = new Point();
                         display.getSize(size);
                         x = (float) (size.x * getX());
@@ -160,12 +167,6 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
                         animation2.setDuration(0);
                         animation.start();
                         animation2.start();
-
-                        binding.ivTarget.setVisibility(View.VISIBLE);
-                        binding.tvTargetRemainingCtr.setText(millisUntilFinished/(secDivider*1000) + "");
-                        if(currentUser.getDifficulty().equalsIgnoreCase("Hard") && (millisUntilFinished/(secDivider*1000)) > 31){
-                            binding.tvTargetRemainingCtr.setText("30");
-                        }
                     }
                 }
 
@@ -175,6 +176,7 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
                     binding.btnStartGame.setVisibility(View.VISIBLE);
                     binding.ivGun.setVisibility(View.VISIBLE);
                     binding.vvGun.setVisibility(View.GONE);
+                    binding.tvTargetRemainingCtr.setText(0);
 
                     Intent intent = new Intent(GameOnlineActivity.this, ScoreDisplayerActivity.class);
                     intent.putExtra("targets_killed", scoreCounter);
@@ -193,21 +195,21 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
 
         switch(currentUser.getDifficulty()){
             case "Easy":
-                miliSecTotal = 125000;
-                secTotal = 125;
-                secDivider = 4;
+                miliSecTotal = 180000;
+                secTotal = 180;
+                secDivider = 6;
                 break;
 
             case "Medium":
-                miliSecTotal = 94000;
-                secTotal = 94;
-                secDivider = 3;
+                miliSecTotal = 120000;
+                secTotal = 120;
+                secDivider = 4;
                 break;
 
             case "Hard":
-                miliSecTotal = 32000;
-                secTotal = 32;
-                secDivider = 1;
+                miliSecTotal = 60000;
+                secTotal = 60;
+                secDivider = 2;
                 break;
 
             default:
@@ -221,7 +223,7 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         Random rand = new Random();
 
         float result = rand.nextFloat();
-        while(result > 0.775){
+        while(result > 0.75 || result < 0.05){
             result = rand.nextFloat();
         }
 
@@ -233,7 +235,7 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         Random rand = new Random();
 
         float result = rand.nextFloat();
-        while(result > 0.5 || result < 0.1){
+        while(result > 0.45 || result < 0.15){
             result = rand.nextFloat();
         }
 
