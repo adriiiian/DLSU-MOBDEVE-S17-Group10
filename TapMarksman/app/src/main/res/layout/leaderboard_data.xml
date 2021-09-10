@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/item_card_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/darkbluebtns">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_mid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            card_view:layout_constraintGuide_percent="0.525" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_left"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            card_view:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            card_view:layout_constraintGuide_percent="0.90" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_left_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            card_view:layout_constraintGuide_percent="0.10" />
+
+        <TextView
+            android:id="@+id/tv_username_leaderboards"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Sample Username"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@drawable/border_textview"
+            android:textAlignment="center"
+            card_view:layout_constrainedWidth="true"
+            card_view:layout_constrainedHeight="true"
+            card_view:layout_constraintLeft_toLeftOf="@id/gl_left"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintRight_toLeftOf="@id/gl_mid" />
+
+
+        <TextView
+            android:id="@+id/tv_score_leaderboards"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="100"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@drawable/border_textview"
+            android:textAlignment="center"
+            card_view:layout_constrainedWidth="true"
+            card_view:layout_constrainedHeight="true"
+            card_view:layout_constraintRight_toRightOf="@id/gl_right"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintLeft_toRightOf="@id/gl_mid"/>
+
+        <TextView
+            android:id="@+id/tv_rank"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@drawable/border_textview"
+            android:textAlignment="center"
+            card_view:layout_constrainedWidth="true"
+            card_view:layout_constrainedHeight="true"
+            card_view:layout_constraintLeft_toLeftOf="@id/gl_left_2"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintRight_toLeftOf="@id/gl_left"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

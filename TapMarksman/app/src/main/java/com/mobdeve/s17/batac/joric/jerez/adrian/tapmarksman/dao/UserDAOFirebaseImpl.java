@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.FirebaseCallback;
+import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.FirebaseLeaderboardCallback;
 import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.model.User;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class UserDAOFirebaseImpl implements UserDAO{
     }
 
     @Override
-    public ArrayList<User> getUsers() {
+    public ArrayList<User> getUsers(FirebaseLeaderboardCallback firebaseLeaderboardCallback) {
         ArrayList<User> users = new ArrayList<>();
 
         myRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -68,14 +69,31 @@ public class UserDAOFirebaseImpl implements UserDAO{
                         temp.setUserName(user.child("userName").getValue().toString());
                         temp.setUserPassword(user.child("userPassword").getValue().toString());
                         temp.setUserEmail(user.child("userEmail").getValue().toString());
+                        temp.setOwnedPistol(Boolean.valueOf(user.child("ownedPistol").getValue().toString()));
+                        temp.setOwnedRevolver(Boolean.valueOf(user.child("ownedRevolver").getValue().toString()));
+                        temp.setOwnedDesertEagle(Boolean.valueOf(user.child("ownedDesertEagle").getValue().toString()));
+                        temp.setOwnedRifle(Boolean.valueOf(user.child("ownedRifle").getValue().toString()));
+                        temp.setDamageUpgradeCounter(Integer.valueOf(user.child("damageUpgradeCounter").getValue().toString()));
+                        temp.setPowerUpgradeCounter(Integer.valueOf(user.child("powerUpgradeCounter").getValue().toString()));
+                        temp.setControlUpgradeCounter(Integer.valueOf(user.child("controlUpgradeCounter").getValue().toString()));
+                        temp.setPoints(Integer.valueOf(user.child("points").getValue().toString()));
+                        temp.setMultiplier(Integer.valueOf(user.child("multiplier").getValue().toString()));
+                        temp.setDifficulty(user.child("difficulty").getValue().toString());
+                        temp.setEquipedGun(user.child("equipedGun").getValue().toString());
+                        temp.setHighestScore(Integer.valueOf(user.child("highestScore").getValue().toString()));
 
                         users.add(temp);
+                        System.out.println(users.get(0).getUserName());
 
                     }
+                    firebaseLeaderboardCallback.onCallBack(users);
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                 }
             }
         });
+
+
+
         return users;
     }
 
@@ -100,6 +118,7 @@ public class UserDAOFirebaseImpl implements UserDAO{
                 user.setMultiplier(Integer.valueOf(snapshot.child("multiplier").getValue().toString()));
                 user.setDifficulty(snapshot.child("difficulty").getValue().toString());
                 user.setEquipedGun(snapshot.child("equipedGun").getValue().toString());
+                user.setHighestScore(Integer.valueOf(snapshot.child("highestScore").getValue().toString()));
                 firebaseCallback.onCallBack(user);
             }
 
@@ -139,8 +158,9 @@ public class UserDAOFirebaseImpl implements UserDAO{
     }
 
     @Override
-    public void updateUserGamePoints(int gamepoints, FirebaseCallback firebaseCallback) {
+    public void updateUserGamePoints(int gamepoints, int highestScore, FirebaseCallback firebaseCallback) {
         myRef.child(mAuth.getCurrentUser().getUid()).child("points").setValue(gamepoints);
+        myRef.child(mAuth.getCurrentUser().getUid()).child("highestScore").setValue(highestScore);
         User user = new User();
         firebaseCallback.onCallBack(user);
     }

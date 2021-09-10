@@ -2,13 +2,11 @@ package com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.preference.PreferenceManager;
 import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,8 +58,28 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         mAuth = FirebaseAuth.getInstance();
         scoreCounter = 0; // Sets the score counter to 0
 
-        // Setting video to video view
-        Uri uri = Uri.parse("android.resource://com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman/" + R.raw.pistol);
+        Uri uri = null;
+        // Setting image and video to their specific views
+        if(currentUser.getEquipedGun().equalsIgnoreCase("Pistol")){
+            binding.ivGun.setImageResource(R.drawable.pistol);
+            uri = Uri.parse("android.resource://com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman/" + R.raw.pistol);
+            ringer = MediaPlayer.create(GameOnlineActivity.this, R.raw.pistol_sound);
+        }
+        else if(currentUser.getEquipedGun().equalsIgnoreCase("Revolver")){
+            binding.ivGun.setImageResource(R.drawable.revolver);
+            uri = Uri.parse("android.resource://com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman/" + R.raw.revolver);
+            ringer = MediaPlayer.create(GameOnlineActivity.this, R.raw.revolver_sound);
+        }
+        else if(currentUser.getEquipedGun().equalsIgnoreCase("Desert Eagle")){
+            binding.ivGun.setImageResource(R.drawable.deagle);
+            uri = Uri.parse("android.resource://com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman/" + R.raw.deagle);
+            ringer = MediaPlayer.create(GameOnlineActivity.this, R.raw.deagle_sound);
+        }
+        else if(currentUser.getEquipedGun().equalsIgnoreCase("Rifle")){
+            binding.ivGun.setImageResource(R.drawable.rifle);
+            uri = Uri.parse("android.resource://com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman/" + R.raw.rifle);
+            ringer = MediaPlayer.create(GameOnlineActivity.this, R.raw.rifle_sound);
+        }
         binding.vvGun.setVideoURI(uri);
         binding.vvGun.requestFocus();
 
@@ -90,6 +108,7 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
             intent.putExtra("multiplier", currentUser.getMultiplier());
             intent.putExtra("difficulty", currentUser.getDifficulty());
             intent.putExtra("equipedGun", currentUser.getEquipedGun());
+            intent.putExtra("highestScore", currentUser.getHighestScore());
             startActivity(intent);
             finish();
         });
@@ -98,7 +117,7 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         binding.ivTarget.setOnClickListener(view -> {
             binding.ivTarget.setVisibility(View.GONE);
             binding.vvGun.start();
-            ringer = MediaPlayer.create(GameOnlineActivity.this, R.raw.pistolsound);
+//            ringer = MediaPlayer.create(GameOnlineActivity.this, R.raw.pistolsound);
             ringer.start();
             scoreCounter++;
             binding.tvPtsctr.setText(Integer.toString(scoreCounter));
@@ -145,9 +164,9 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
                             binding.tvTargetRemainingCtr.setText("30");
                         }
                     }
-                    else if((secTotal - (millisUntilFinished/500)) % 2 == 1){
-                        ringer.release();
-                    }
+//                    else if((secTotal - (millisUntilFinished/500)) % 2 == 1){
+//                        ringer.release();
+//                    }
                 }
 
                 @Override
@@ -162,6 +181,7 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
                     intent.putExtra("difficulty", currentUser.getDifficulty());
                     intent.putExtra("multiplier", currentUser.getMultiplier());
                     intent.putExtra("gamepoints", currentUser.getPoints());
+                    intent.putExtra("highestScore", currentUser.getHighestScore());
                     startActivity(intent);
 
                     scoreCounter = 0; // Sets the score counter to 0 after finishing the round.

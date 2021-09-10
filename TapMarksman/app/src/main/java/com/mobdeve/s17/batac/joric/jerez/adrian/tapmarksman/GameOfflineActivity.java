@@ -47,7 +47,9 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
     private void init(){
 
         mAuth = FirebaseAuth.getInstance();
-        mAuth.signOut();
+        if(mAuth.getCurrentUser() != null){
+            mAuth.signOut();
+        }
         // Setting video to video view
         Uri uri = Uri.parse("android.resource://com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman/" + R.raw.pistol);
         binding.vvGun.setVideoURI(uri);
@@ -65,7 +67,7 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
         binding.ivTarget.setOnClickListener(view -> {
             binding.ivTarget.setVisibility(View.GONE);
             binding.vvGun.start();
-            ringer = MediaPlayer.create(GameOfflineActivity.this, R.raw.pistolsound);
+            ringer = MediaPlayer.create(GameOfflineActivity.this, R.raw.pistol_sound);
             ringer.start();
             scoreCounter++;
             binding.tvPtsctr.setText(Integer.toString(scoreCounter));
@@ -153,13 +155,13 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
         switch(sp.getInt(SettingsOfflineActivity.SETTINGS_SELECTED_KEY, 1)){
             case 1:
                 miliSecTotal = 125000;
-                secTotal = 128;
+                secTotal = 125;
                 secDivider = 4;
                 break;
 
             case 2:
                 miliSecTotal = 94000;
-                secTotal = 96;
+                secTotal = 94;
                 secDivider = 3;
                 break;
 

@@ -72,6 +72,7 @@ public class SignUpActivity extends AppCompatActivity {
                     user.setMultiplier(1);
                     user.setDifficulty("Easy");
                     user.setEquipedGun("Pistol");
+                    user.setHighestScore(0);
 
                     // Code for user authentication and adding to firebase database
                     mAuth.createUserWithEmailAndPassword(user.getUserEmail(), user.getUserPassword()).addOnCompleteListener(

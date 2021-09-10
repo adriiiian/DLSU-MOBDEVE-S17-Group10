@@ -14,13 +14,17 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private FirebaseAuth mAuth;
     private MediaPlayer ringer;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        mAuth = FirebaseAuth.getInstance();
+        if(mAuth.getCurrentUser() != null){
+            mAuth.signOut();
+        }
+
 
         // Listener to go to offline game
         binding.btnOffline.setOnClickListener(view -> {

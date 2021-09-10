@@ -42,6 +42,7 @@ public class UpgradesMenuActivity extends AppCompatActivity {
         user.setMultiplier(getIntent.getIntExtra("multiplier", 1));
         user.setDifficulty(getIntent.getStringExtra("difficulty"));
         user.setEquipedGun(getIntent.getStringExtra("equipedGun"));
+        user.setHighestScore(getIntent.getIntExtra("highestScore", 0));
 
         setBtnGuns();
         setEquipedGun();

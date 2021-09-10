@@ -1,8 +1,9 @@
 package com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.model;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
-public class User implements Serializable {
+public class User implements Serializable{
     private String userName = "";
     private String userEmail = "";
     private String userPassword = "";
@@ -17,6 +18,7 @@ public class User implements Serializable {
     private int points;
     private String difficulty;
     private String equipedGun;
+    private int highestScore;
 
     public User(){
 
@@ -139,4 +141,20 @@ public class User implements Serializable {
     public void setEquipedGun(String equipedGun) {
         this.equipedGun = equipedGun;
     }
+
+    public int getHighestScore() {
+        return highestScore;
+    }
+
+    public void setHighestScore(int highestScore) {
+        this.highestScore = highestScore;
+    }
+
+    public static Comparator<User> UserComparator = new Comparator<User>(){
+
+        @Override
+        public int compare(User o1, User o2) {
+            return o2.getHighestScore() - o1.getHighestScore();
+        }
+    };
 }
