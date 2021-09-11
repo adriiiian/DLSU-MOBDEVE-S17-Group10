@@ -43,6 +43,7 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         binding = ActivityGameOnlineBinding.inflate(getLayoutInflater());
         UserDAO userDAO = new UserDAOFirebaseImpl();
 
+        // Gets the current logged in user information from firebase database
         userDAO.getUser(new FirebaseCallback(){
             @Override
             public void onCallBack(User user) {
@@ -59,7 +60,7 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         scoreCounter = 0; // Sets the score counter to 0
 
         ringerBG = MediaPlayer.create(GameOnlineActivity.this, R.raw.ingame_bg_music);
-        ringerBG.start();
+        ringerBG.start();   // Background music
 
         Uri uri = null;
         // Setting image and video to their specific views
@@ -146,7 +147,7 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
             timer = new CountDownTimer(miliSecTotal, 1000){
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    if((secTotal - (millisUntilFinished/1000)) % secDivider == 1){
+                    if((secTotal - (millisUntilFinished/1000)) % secDivider == secDivider/2){
                         binding.ivTarget.setVisibility(View.VISIBLE);
                         if(currentUser.getDifficulty().equalsIgnoreCase("Hard") && (millisUntilFinished/(secDivider*1000)) > 31){
                             binding.tvTargetRemainingCtr.setText("30");
@@ -271,6 +272,17 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         }
 
         ringerBG.stop();
-//        timer.cancel();
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        ringerBG.stop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ringerBG.start();
     }
 }

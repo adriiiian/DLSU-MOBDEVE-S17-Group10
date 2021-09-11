@@ -124,11 +124,7 @@
             app:layout_constraintRight_toLeftOf="@id/gl_right"
             tools:ignore="MissingConstraints" />
 
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_data"

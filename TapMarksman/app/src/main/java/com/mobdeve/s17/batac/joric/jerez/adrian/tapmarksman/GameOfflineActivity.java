@@ -114,7 +114,7 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
             timer = new CountDownTimer(miliSecTotal, 1000){
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    if((secTotal - (millisUntilFinished/1000)) % secDivider == 1){
+                    if((secTotal - (millisUntilFinished/1000)) % secDivider == secDivider/2){
                         binding.ivTarget.setVisibility(View.VISIBLE);
                         if(sp.getInt(SettingsOfflineActivity.SETTINGS_SELECTED_KEY, 1) == 3 && (millisUntilFinished/(secDivider*1000)) > 31){
                             binding.tvTargetRemainingCtr.setText("30");
@@ -229,9 +229,10 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
     @Override
     protected void onPause() {
         super.onPause();
+        if(timer != null){
+            timer.cancel();
+        }
         ringerBG.pause();
-//        ringerBG.stop();
-//        timer.cancel();
     }
 
     @Override
