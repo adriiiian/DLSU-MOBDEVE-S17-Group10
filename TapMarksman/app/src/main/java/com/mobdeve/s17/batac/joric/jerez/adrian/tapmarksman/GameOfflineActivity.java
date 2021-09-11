@@ -229,7 +229,20 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
     @Override
     protected void onPause() {
         super.onPause();
-        ringerBG.stop();
+        ringerBG.pause();
+//        ringerBG.stop();
 //        timer.cancel();
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        ringerBG.stop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ringerBG.start();
     }
 }
