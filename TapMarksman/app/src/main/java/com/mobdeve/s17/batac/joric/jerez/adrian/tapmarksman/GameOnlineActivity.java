@@ -271,18 +271,24 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
             timer.cancel();
         }
 
-        ringerBG.stop();
+        if(ringerBG != null){
+            ringerBG.pause();
+        }
     }
 
     @Override
     protected void onDestroy(){
         super.onDestroy();
-        ringerBG.stop();
+        if(ringerBG != null){
+            ringerBG.stop();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        ringerBG.start();
+        if(ringerBG != null){
+            ringerBG.start();
+        }
     }
 }

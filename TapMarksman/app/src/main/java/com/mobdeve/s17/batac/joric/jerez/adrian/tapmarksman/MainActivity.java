@@ -74,18 +74,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        ringer.pause();
+        if(ringer != null){
+            ringer.pause();
+        }
+
     }
 
     @Override
     protected void onDestroy(){
         super.onDestroy();
-        ringer.stop();
+        if(ringer != null){
+            ringer.stop();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        ringer.start();
+        if(ringer != null){
+            ringer.start();
+        }
     }
 }
