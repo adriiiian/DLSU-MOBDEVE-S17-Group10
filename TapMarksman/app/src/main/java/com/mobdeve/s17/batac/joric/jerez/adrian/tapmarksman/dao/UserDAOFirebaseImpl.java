@@ -151,9 +151,19 @@ public class UserDAOFirebaseImpl implements UserDAO{
 
     @Override
     public void updateUserDifficulty(String difficulty, FirebaseCallback firebaseCallback) {
-        myRef.child(mAuth.getCurrentUser().getUid()).child("difficulty").setValue(difficulty);
-        User user = new User();
-        firebaseCallback.onCallBack(user);
+        myRef.child(mAuth.getCurrentUser().getUid()).child("difficulty").setValue(difficulty, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError error,DatabaseReference ref) {
+                if(error != null){
+                    Log.e("ERROR", "ERROR: " + error.getMessage());
+                }
+                else{
+                    Log.d("SUCCESS", "DATA UPDATED");
+                    User user = new User();
+                    firebaseCallback.onCallBack(user);
+                }
+            }
+        });
     }
 
     @Override

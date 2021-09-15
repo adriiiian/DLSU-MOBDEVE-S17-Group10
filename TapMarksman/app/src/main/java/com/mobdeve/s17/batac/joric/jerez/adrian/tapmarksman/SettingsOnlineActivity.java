@@ -87,12 +87,11 @@ public class    SettingsOnlineActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(SettingsOnlineActivity.this, GameOnlineActivity.class);
-
         UserDAO userDAO = new UserDAOFirebaseImpl();
         userDAO.updateUserDifficulty(getDifficulty(), new FirebaseCallback(){
             @Override
             public void onCallBack(User user) {
+                Intent intent = new Intent(SettingsOnlineActivity.this, GameOnlineActivity.class);
                 startActivity(intent);
                 finish();
             }

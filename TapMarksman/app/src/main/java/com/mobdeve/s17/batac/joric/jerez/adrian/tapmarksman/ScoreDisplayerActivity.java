@@ -37,7 +37,21 @@ public class ScoreDisplayerActivity extends AppCompatActivity {
         binding.tvTargetskilled.setText(Integer.toString(intent.getIntExtra("targets_killed", 0)));
         binding.tvDifficulty.setText(intent.getStringExtra("difficulty"));
         binding.tvMultiplier.setText(Integer.toString(intent.getIntExtra("multiplier", 1)));
-        totalScore = intent.getIntExtra("targets_killed", 0) * intent.getIntExtra("multiplier", 1);
+
+        switch(intent.getIntExtra("multiplier", 1)){
+            case 1:
+                totalScore = intent.getIntExtra("targets_killed", 0) * 1;
+                break;
+
+            case 2:
+                totalScore = intent.getIntExtra("targets_killed", 0) * 2;
+                break;
+
+            case 3:
+                totalScore = intent.getIntExtra("targets_killed", 0) * 3;
+                break;
+        }
+        totalScore *= intent.getIntExtra("multiplier", 1);
         binding.tvTotalscore.setText(Integer.toString(totalScore));
         points = intent.getIntExtra("gamepoints", 0) + totalScore;
         highestScore = intent.getIntExtra("highestScore", 0);

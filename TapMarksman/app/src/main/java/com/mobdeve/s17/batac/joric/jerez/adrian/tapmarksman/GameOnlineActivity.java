@@ -26,15 +26,15 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
 
     private ActivityGameOnlineBinding binding;
     private FirebaseAuth mAuth;
-    private int miliSecTotal = 0, secTotal = 0, secDivider = 0;
+    private int miliSecTotal = 0, secTotal = 0, secDivider = 0, secCopy, scoreCounter;
     private Display display;
     private Point size;
     private float x, y;
     private ObjectAnimator animation, animation2;
     private CountDownTimer timer;
     private MediaPlayer ringer, ringerBG;
-    private int scoreCounter;
     private User currentUser;
+    private boolean isChanged;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,9 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         scoreCounter = 0; // Sets the score counter to 0
 
         ringerBG = MediaPlayer.create(GameOnlineActivity.this, R.raw.ingame_bg_music);
-        ringerBG.start();   // Background music
+        if(ringerBG != null && !ringerBG.isPlaying()){
+            ringerBG.start();
+        }
 
         Uri uri = null;
         // Setting image and video to their specific views
@@ -124,6 +126,8 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
             ringer.start();
             scoreCounter++;
             binding.tvPtsctr.setText(Integer.toString(scoreCounter));
+            binding.tvTargetRemainingCtr.setText(Integer.toString(Integer.parseInt(binding.tvTargetRemainingCtr.getText().toString()) - 1));
+            isChanged = true;
         });
 
         // Listener for the start game button
@@ -143,20 +147,24 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
 
             binding.ivGun.setVisibility(View.GONE);
             binding.vvGun.setVisibility(View.VISIBLE);
+            binding.vvGun.seekTo(1);
+            secCopy = secTotal;
+            isChanged = false;
 
             timer = new CountDownTimer(miliSecTotal, 1000){
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    if((secTotal - (millisUntilFinished/1000)) % secDivider == secDivider/2){
+                    secCopy--;
+                    if(secCopy % secDivider == secDivider - 1){
                         binding.ivTarget.setVisibility(View.VISIBLE);
-                        if(currentUser.getDifficulty().equalsIgnoreCase("Hard") && (millisUntilFinished/(secDivider*1000)) > 31){
-                            binding.tvTargetRemainingCtr.setText("30");
+                        if(!isChanged){
+                            binding.tvTargetRemainingCtr.setText((secCopy + 1)/secDivider + "");
                         }
+                        isChanged = false;
                     }
-                    else if((secTotal - (millisUntilFinished/1000)) % secDivider == 0){
+                    else if(secCopy % secDivider == 0){
                         binding.ivTarget.setVisibility(View.GONE);
                         display = getWindowManager().getDefaultDisplay();
-                        binding.tvTargetRemainingCtr.setText(millisUntilFinished/(secDivider*1000) + "");
                         size = new Point();
                         display.getSize(size);
                         x = (float) (size.x * getX());
@@ -196,15 +204,15 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
 
         switch(currentUser.getDifficulty()){
             case "Easy":
-                miliSecTotal = 180000;
-                secTotal = 180;
-                secDivider = 6;
-                break;
-
-            case "Medium":
                 miliSecTotal = 120000;
                 secTotal = 120;
                 secDivider = 4;
+                break;
+
+            case "Medium":
+                miliSecTotal = 90000;
+                secTotal = 90;
+                secDivider = 3;
                 break;
 
             case "Hard":
@@ -287,7 +295,7 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
     @Override
     protected void onResume() {
         super.onResume();
-        if(ringerBG != null){
+        if(ringerBG != null && !ringerBG.isPlaying()){
             ringerBG.start();
         }
     }

@@ -25,15 +25,15 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
 
     private ActivityGameOfflineBinding binding;
     private SharedPreferences sp;
-    private int miliSecTotal = 0, secTotal = 0, secDivider = 0;
+    private int miliSecTotal = 0, secTotal = 0, secDivider = 0, secCopy, scoreCounter;
     private Display display;
     private Point size;
     private float x, y;
     private ObjectAnimator animation, animation2;
     private CountDownTimer timer;
     private MediaPlayer ringer, ringerBG;
-    private int scoreCounter;
     private FirebaseAuth mAuth;
+    private boolean isChanged;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,9 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
         scoreCounter = 0;
 
         ringerBG = MediaPlayer.create(GameOfflineActivity.this, R.raw.ingame_bg_music);
-        ringerBG.start();
+        if(ringerBG != null && !ringerBG.isPlaying()){
+            ringerBG.start();
+        }
 
         // Setting image and video to their specific views
         Uri uri = Uri.parse("android.resource://com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman/" + R.raw.pistol);
@@ -76,6 +78,8 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
             ringer.start();
             scoreCounter++;
             binding.tvPtsctr.setText(Integer.toString(scoreCounter));
+            binding.tvTargetRemainingCtr.setText(Integer.toString(Integer.parseInt(binding.tvTargetRemainingCtr.getText().toString()) - 1));
+            isChanged = true;
         });
 
         // Listener for the start game button
@@ -93,34 +97,24 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
             animation.start();
             animation2.start();
 
-            binding.ivTarget.setVisibility(View.VISIBLE);
             binding.ivGun.setVisibility(View.GONE);
             binding.vvGun.setVisibility(View.VISIBLE);
+            binding.vvGun.seekTo(1);
+            secCopy = secTotal;
+            isChanged = false;
 
-            /*
-                Timer for the round.
-
-                Variables:
-                miliSecTotal is the variable that specify how long the round will go.
-                Easy: 120 seconds (4 secs each target, 30 targets)
-                Medium: 90 seconds (3 secs each target, 30 targets)
-                Hard: 30 seconds (1 sec each target, 30 targets)
-
-                countDownInterval is always 1 seconds or 1000 milliseconds
-
-                secDivider is the variable that specify if the target should change its position,
-                depending on the remaining time in our timer.
-             */
             timer = new CountDownTimer(miliSecTotal, 1000){
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    if((secTotal - (millisUntilFinished/1000)) % secDivider == secDivider/2){
+                    secCopy--;
+                    if(secCopy % secDivider == secDivider - 1){
                         binding.ivTarget.setVisibility(View.VISIBLE);
-                        if(sp.getInt(SettingsOfflineActivity.SETTINGS_SELECTED_KEY, 1) == 3 && (millisUntilFinished/(secDivider*1000)) > 31){
-                            binding.tvTargetRemainingCtr.setText("30");
+                        if(!isChanged){
+                            binding.tvTargetRemainingCtr.setText((secCopy + 1)/secDivider + "");
                         }
+                        isChanged = false;
                     }
-                    else if((secTotal - (millisUntilFinished/1000)) % secDivider == 0){
+                    else if(secCopy % secDivider == 0){
                         binding.ivTarget.setVisibility(View.GONE);
                         display = getWindowManager().getDefaultDisplay();
                         binding.tvTargetRemainingCtr.setText(millisUntilFinished/(secDivider*1000) + "");
@@ -162,15 +156,15 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         switch(sp.getInt(SettingsOfflineActivity.SETTINGS_SELECTED_KEY, 1)){
             case 1:
-                miliSecTotal = 180000;
-                secTotal = 180;
-                secDivider = 6;
-                break;
-
-            case 2:
                 miliSecTotal = 120000;
                 secTotal = 120;
                 secDivider = 4;
+                break;
+
+            case 2:
+                miliSecTotal = 90000;
+                secTotal = 90;
+                secDivider = 3;
                 break;
 
             case 3:
@@ -249,7 +243,7 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
     @Override
     protected void onResume() {
         super.onResume();
-        if(ringerBG != null){
+        if(ringerBG != null && !ringerBG.isPlaying()){
             ringerBG.start();
         }
     }
