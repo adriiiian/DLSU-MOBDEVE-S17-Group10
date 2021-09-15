@@ -39,14 +39,13 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        binding = ActivityGameOnlineBinding.inflate(getLayoutInflater());
         UserDAO userDAO = new UserDAOFirebaseImpl();
 
         // Gets the current logged in user information from firebase database
         userDAO.getUser(new FirebaseCallback(){
             @Override
             public void onCallBack(User user) {
+                binding = ActivityGameOnlineBinding.inflate(getLayoutInflater());
                 currentUser = user;
                 setContentView(binding.getRoot());
                 init();
@@ -60,7 +59,10 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         scoreCounter = 0; // Sets the score counter to 0
 
         ringerBG = MediaPlayer.create(GameOnlineActivity.this, R.raw.ingame_bg_music);
-        if(ringerBG != null && !ringerBG.isPlaying()){
+        if(ringerBG != null && ringerBG.isPlaying()){
+            ringerBG.stop();
+        }
+        else if(ringerBG != null && !ringerBG.isPlaying()){
             ringerBG.start();
         }
 
@@ -289,6 +291,7 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         super.onDestroy();
         if(ringerBG != null){
             ringerBG.stop();
+            ringerBG.release();
         }
     }
 

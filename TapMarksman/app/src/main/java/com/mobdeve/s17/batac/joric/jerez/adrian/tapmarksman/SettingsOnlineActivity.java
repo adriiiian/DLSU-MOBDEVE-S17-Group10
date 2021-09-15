@@ -26,16 +26,14 @@ public class    SettingsOnlineActivity extends AppCompatActivity {
         binding = ActivitySettingsOnlineBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-//        sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         init();
 
         binding.btnSave.setOnClickListener(view -> {
-            Intent intent = new Intent(SettingsOnlineActivity.this, GameOnlineActivity.class);
-
             UserDAO userDAO = new UserDAOFirebaseImpl();
             userDAO.updateUserDifficulty(getDifficulty(), new FirebaseCallback(){
                 @Override
                 public void onCallBack(User user) {
+                    Intent intent = new Intent(SettingsOnlineActivity.this, GameOnlineActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -46,20 +44,16 @@ public class    SettingsOnlineActivity extends AppCompatActivity {
     private void init(){
         Intent getIntent = getIntent();
         String difficulty = getIntent.getStringExtra("difficulty");
-        int checked = 0;
         switch(difficulty){
             case "Easy":
-                checked = 1;
                 binding.rgDifficulty.check(binding.rbEasy.getId());
                 break;
 
             case "Medium":
-                checked = 2;
                 binding.rgDifficulty.check(binding.rbMedium.getId());
                 break;
 
             case "Hard":
-                checked = 3;
                 binding.rgDifficulty.check(binding.rbHard.getId());
                 break;
 
@@ -97,26 +91,4 @@ public class    SettingsOnlineActivity extends AppCompatActivity {
             }
         });
     }
-
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        spEditor = sp.edit();
-//
-//        if(binding.rbEasy.isChecked()){
-//            spEditor.putInt(SETTINGS_KEY, binding.rgDifficulty.getCheckedRadioButtonId());
-//            spEditor.putInt(SETTINGS_SELECTED_KEY, 1);
-//        }
-//        else if(binding.rbMedium.isChecked()){
-//            spEditor.putInt(SETTINGS_KEY, binding.rgDifficulty.getCheckedRadioButtonId());
-//            spEditor.putInt(SETTINGS_SELECTED_KEY, 2);
-//        }
-//        else if(binding.rbHard.isChecked()){
-//            spEditor.putInt(SETTINGS_KEY, binding.rgDifficulty.getCheckedRadioButtonId());
-//            spEditor.putInt(SETTINGS_SELECTED_KEY, 3);
-//        }
-//
-//        spEditor.apply();
-//
-//    }
 }
