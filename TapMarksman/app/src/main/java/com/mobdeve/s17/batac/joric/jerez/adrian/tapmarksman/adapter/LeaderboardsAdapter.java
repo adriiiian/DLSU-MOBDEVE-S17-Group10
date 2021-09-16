@@ -24,6 +24,9 @@ public class LeaderboardsAdapter extends RecyclerView.Adapter<LeaderboardsAdapte
         this.context = context;
     }
 
+    /*
+     * Creates view for leaderboard
+     */
     @Override
     public LeaderboardsAdapter.LeaderboardsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.leaderboard_data, parent, false);
@@ -33,6 +36,10 @@ public class LeaderboardsAdapter extends RecyclerView.Adapter<LeaderboardsAdapte
         return leaderboardsViewHolder;
     }
 
+    /*
+     * Sets the leaderboard based on the scores of each user
+     * color is also alternate
+     */
     @Override
     public void onBindViewHolder(LeaderboardsAdapter.LeaderboardsViewHolder holder, int position) {
         holder.tv_username.setText(userArrayList.get(position).getUserName());
@@ -51,11 +58,17 @@ public class LeaderboardsAdapter extends RecyclerView.Adapter<LeaderboardsAdapte
         }
     }
 
+    /*
+     * Gets size of user arraylist
+     */
     @Override
     public int getItemCount() {
         return userArrayList.size();
     }
 
+    /*
+     * Sets the content for the leaderboards
+     */
     public class LeaderboardsViewHolder extends RecyclerView.ViewHolder{
         ConstraintLayout cl_main;
         TextView tv_username;
