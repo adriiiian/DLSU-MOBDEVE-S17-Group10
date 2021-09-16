@@ -28,6 +28,9 @@ public class    SettingsOnlineActivity extends AppCompatActivity {
 
         init();
 
+        /*
+         * Return user to the game screen after hitting save, updates the game difficulty
+         */
         binding.btnSave.setOnClickListener(view -> {
             UserDAO userDAO = new UserDAOFirebaseImpl();
             userDAO.updateUserDifficulty(getDifficulty(), new FirebaseCallback(){
@@ -41,6 +44,9 @@ public class    SettingsOnlineActivity extends AppCompatActivity {
         });
     }
 
+    /*
+     * Checks the difficulty and  sets it as selected in settings menu
+     */
     private void init(){
         Intent getIntent = getIntent();
         String difficulty = getIntent.getStringExtra("difficulty");
@@ -63,6 +69,9 @@ public class    SettingsOnlineActivity extends AppCompatActivity {
 
     }
 
+    /*
+     * Checks selection and returns difficulty
+     */
     private String getDifficulty(){
         String result = "";
         if(binding.rbEasy.isChecked()){
@@ -78,6 +87,9 @@ public class    SettingsOnlineActivity extends AppCompatActivity {
         return result;
     }
 
+    /*
+     * Return user to the game screen after hitting back, updates the database on new difficculty set by user
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();

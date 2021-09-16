@@ -23,11 +23,14 @@ public class SettingsOfflineActivity extends AppCompatActivity {
         binding = ActivitySettingsOfflineBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        /*
+         * Sets selected difficulty upon opening settings
+         */
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         binding.rgDifficulty.check(sp.getInt(SETTINGS_KEY, binding.rbEasy.getId()));
 
         /*
-         * Returns user to game screen after hitting the save button
+         * Returns user to game screen after hitting the save button, updates game difficulty
          */
         binding.btnSave.setOnClickListener(view -> {
             Intent intent = new Intent(SettingsOfflineActivity.this, GameOfflineActivity.class);
@@ -48,7 +51,7 @@ public class SettingsOfflineActivity extends AppCompatActivity {
     }
 
     /*
-     * Checks what is pressed on the selection (easy, medium, or hard)
+     * Checks changes based on the selection (easy, medium, or hard)
      */
     @Override
     protected void onPause() {
