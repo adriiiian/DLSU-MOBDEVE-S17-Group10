@@ -36,17 +36,27 @@
         android:padding="8dp"
         android:background="@color/darkblue"
         app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_left_inner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.15" />
         <Button
             android:id="@+id/btn_return"
-            android:layout_width="60dp"
+            android:layout_width="0dp"
             android:layout_height="60dp"
             android:fontFamily="sans-serif-medium"
             android:textSize="14dp"
-            android:text="Return"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="Game"
             android:textColor="@color/white"
-            android:background="@drawable/game_menu_buttons"
-            tools:ignore="MissingConstraints" />
+            android:background="@drawable/game_menu_return"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/gl_left_inner"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constrainedWidth="true"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <LinearLayout
         app:layout_constraintTop_toBottomOf="@id/cl_upper2"
@@ -237,23 +247,25 @@
                     android:textSize="18sp" />
 
             </LinearLayout>
+
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:weightSum="10">
+
                 <TextView
-                    android:layout_marginLeft="12dp"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_weight="7"
-                    android:text="Power"
-                    android:paddingLeft="10dp"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="12dp"
+                    android:layout_weight="7"
+                    android:background="@drawable/upgrade_name_holder"
                     android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:text="Power"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/upgrade_name_holder"/>
+                    android:textStyle="bold" />
+
                 <Button
                     android:id="@+id/btn_power"
                     android:layout_width="0dp"
@@ -261,9 +273,9 @@
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
                     android:layout_weight="3"
+                    android:background="@drawable/purchase_button"
                     android:text="25"
-                    android:textSize="18sp"
-                    android:background="@drawable/purchase_button"/>
+                    android:textSize="18sp" />
             </LinearLayout>
             <LinearLayout
                 android:orientation="horizontal"

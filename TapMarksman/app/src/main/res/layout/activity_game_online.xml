@@ -15,6 +15,13 @@
         android:background="@color/darkblue"
         app:layout_constraintTop_toTopOf="parent">
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
+
         <Button
             android:id="@+id/btn_menu"
             android:layout_width="60dp"
@@ -26,16 +33,18 @@
             android:backgroundTint="@color/black"/>
         <Button
             android:id="@+id/btn_upgrades"
-            android:layout_width="60dp"
+            android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_marginRight="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/game_menu_buttons"
+            android:background="@drawable/game_menu_upgrades"
             android:fontFamily="sans-serif-medium"
-            android:textSize="10dp"
+            android:textSize="14dp"
             android:text="Upgrades"
             android:textColor="@color/white"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintLeft_toLeftOf="@id/gl_right"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constrainedWidth="true"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
