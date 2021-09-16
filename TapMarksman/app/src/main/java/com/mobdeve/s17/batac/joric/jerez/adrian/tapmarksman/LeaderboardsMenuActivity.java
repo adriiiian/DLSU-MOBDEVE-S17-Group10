@@ -28,6 +28,12 @@ public class LeaderboardsMenuActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         UserDAO userDAO = new UserDAOFirebaseImpl();
         usersTop10 = new ArrayList<>();
+
+        /*
+         * This part get all the users and sort them in descending order. (Highest to lowest)
+         * This part also selects only up to 10 highest scorer users that will be displayed
+         * in the leaderboards
+         */
         userDAO.getUsers(new FirebaseLeaderboardCallback() {
             @Override
             public void onCallBack(ArrayList<User> users) {
@@ -40,13 +46,15 @@ public class LeaderboardsMenuActivity extends AppCompatActivity {
                 }
                 else{
                     usersTop10.addAll(users);
-//                    System.out.println(Integer.toString(usersTop10.get(2).getHighestScore()));
                 }
 
                 leaderboardsAdapter = new LeaderboardsAdapter(getApplicationContext(), usersTop10);
                 binding.rvData.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 binding.rvData.setAdapter(leaderboardsAdapter);
 
+                /*
+                 * Listener for back button
+                 */
                 binding.fabBack.setOnClickListener(view -> {
                     Intent intent = new Intent(LeaderboardsMenuActivity.this, MainActivity.class);
                     startActivity(intent);
@@ -54,7 +62,16 @@ public class LeaderboardsMenuActivity extends AppCompatActivity {
                 });
             }
         });
+    }
 
-
+    /**
+     * Override method for onBackPressed
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(LeaderboardsMenuActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
