@@ -26,6 +26,9 @@ public class SettingsOfflineActivity extends AppCompatActivity {
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         binding.rgDifficulty.check(sp.getInt(SETTINGS_KEY, binding.rbEasy.getId()));
 
+        /*
+         * Returns user to game screen after hitting the save button
+         */
         binding.btnSave.setOnClickListener(view -> {
             Intent intent = new Intent(SettingsOfflineActivity.this, GameOfflineActivity.class);
             startActivity(intent);
@@ -33,6 +36,9 @@ public class SettingsOfflineActivity extends AppCompatActivity {
         });
     }
 
+    /*
+     * Return user to the game screen after hitting back
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -41,6 +47,9 @@ public class SettingsOfflineActivity extends AppCompatActivity {
         finish();
     }
 
+    /*
+     * Checks what is pressed on the selection (easy, medium, or hard)
+     */
     @Override
     protected void onPause() {
         super.onPause();
