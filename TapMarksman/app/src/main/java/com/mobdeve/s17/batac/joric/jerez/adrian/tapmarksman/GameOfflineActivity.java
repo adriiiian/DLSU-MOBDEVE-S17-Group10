@@ -162,7 +162,20 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
 
                     Intent intent = new Intent(GameOfflineActivity.this, ScoreDisplayerActivity.class);
                     intent.putExtra("targets_killed", scoreCounter);
-                    intent.putExtra("difficulty", Integer.toString(sp.getInt(SettingsOfflineActivity.SETTINGS_SELECTED_KEY, 1)));
+                    switch(sp.getInt(SettingsOfflineActivity.SETTINGS_SELECTED_KEY, 1)){
+                        case 1:
+                            intent.putExtra("difficulty", "Easy");
+                            break;
+
+                        case 2:
+                            intent.putExtra("difficulty", "Medium");
+                            break;
+                            
+                        case 3:
+                            intent.putExtra("difficulty", "Hard");
+                            break;
+                    }
+
                     startActivity(intent);
 
                     binding.tvPtsctr.setText(Integer.toString(0));
