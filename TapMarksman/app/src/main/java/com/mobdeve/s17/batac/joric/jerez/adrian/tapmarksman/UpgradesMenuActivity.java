@@ -24,8 +24,10 @@ public class UpgradesMenuActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This method is used to initialize variables and views in UpgradesMenuActivity
+     */
     private void init(){
-
         Intent getIntent = getIntent();
         user = new User();
         user.setOwnedPistol(getIntent.getBooleanExtra("pistol", false));
@@ -50,6 +52,9 @@ public class UpgradesMenuActivity extends AppCompatActivity {
         getMultiplier();
         binding.tvPtsctr2.setText(String.valueOf(user.getPoints()));
 
+        /*
+         * Listener for return button
+         */
         binding.btnReturn.setOnClickListener(view -> {
             Intent intent = new Intent(UpgradesMenuActivity.this, GameOnlineActivity.class);
             UserDAO userDAO = new UserDAOFirebaseImpl();
@@ -62,6 +67,9 @@ public class UpgradesMenuActivity extends AppCompatActivity {
             });
         });
 
+        /*
+         * Listener for purchase/equip button for pistol button
+         */
         binding.btnPistol.setOnClickListener(view -> {
             if(user.getOwnedPistol()){
                 binding.btnPistol.setText("EQUIPED");
@@ -69,7 +77,6 @@ public class UpgradesMenuActivity extends AppCompatActivity {
                 setOwned(1);
             }
             else{
-
                 if(user.getPoints() >= 100){
                     binding.btnPistol.setText("OWNED");
                     user.setPoints(user.getPoints() - 100);
@@ -80,6 +87,9 @@ public class UpgradesMenuActivity extends AppCompatActivity {
             }
         });
 
+        /*
+         * Listener for purchase/equip button for revolver button
+         */
         binding.btnRevolver.setOnClickListener(view -> {
             if(user.getOwnedRevolver()){
                 binding.btnRevolver.setText("EQUIPED");
@@ -97,6 +107,9 @@ public class UpgradesMenuActivity extends AppCompatActivity {
             }
         });
 
+        /*
+         * Listener for purchase/equip button for desert eagle button
+         */
         binding.btnDeserteagle.setOnClickListener(view -> {
             if(user.getOwnedDesertEagle()){
                 binding.btnDeserteagle.setText("EQUIPED");
@@ -114,6 +127,9 @@ public class UpgradesMenuActivity extends AppCompatActivity {
             }
         });
 
+        /*
+         * Listener for purchase/equip button for rifle button
+         */
         binding.btnRifle.setOnClickListener(view -> {
             if(user.getOwnedRifle()){
                 binding.btnRifle.setText("EQUIPED");
@@ -131,6 +147,9 @@ public class UpgradesMenuActivity extends AppCompatActivity {
             }
         });
 
+        /*
+         * Listener for purchase damage upgrade button
+         */
         binding.btnDamage.setOnClickListener(view -> {
             if(user.getPoints() >= Integer.parseInt(binding.btnDamage.getText().toString())){
                 user.setPoints(user.getPoints() - Integer.parseInt(binding.btnDamage.getText().toString()));
@@ -142,6 +161,9 @@ public class UpgradesMenuActivity extends AppCompatActivity {
             }
         });
 
+        /*
+         * Listener for purchase power upgrade button
+         */
         binding.btnPower.setOnClickListener(view -> {
             if(user.getPoints() >= Integer.parseInt(binding.btnPower.getText().toString())){
                 user.setPoints(user.getPoints() - Integer.parseInt(binding.btnPower.getText().toString()));
@@ -153,6 +175,9 @@ public class UpgradesMenuActivity extends AppCompatActivity {
             }
         });
 
+        /*
+         * Listener for purchase control upgrade button
+         */
         binding.btnControl.setOnClickListener(view -> {
             if(user.getPoints() >= Integer.parseInt(binding.btnControl.getText().toString())){
                 user.setPoints(user.getPoints() - Integer.parseInt(binding.btnControl.getText().toString()));
@@ -166,47 +191,30 @@ public class UpgradesMenuActivity extends AppCompatActivity {
 
     }
 
-    // This method sets all owned guns when upgrade menu is opened.
+    /**
+     * This method sets all owned guns when upgrade menu is opened.
+     */
     private void setBtnGuns(){
-
-        if(user.getOwnedPistol()){
-            binding.btnPistol.setText("Owned");
-        }
-
-        if(user.getOwnedRevolver()){
-            binding.btnRevolver.setText("Owned");
-        }
-
-        if(user.getOwnedDesertEagle()){
-            binding.btnDeserteagle.setText("Owned");
-        }
-
-        if(user.getOwnedRifle()){
-            binding.btnRifle.setText("Owned");
-        }
-
+        if(user.getOwnedPistol()){ binding.btnPistol.setText("Owned"); }
+        if(user.getOwnedRevolver()){ binding.btnRevolver.setText("Owned"); }
+        if(user.getOwnedDesertEagle()){ binding.btnDeserteagle.setText("Owned"); }
+        if(user.getOwnedRifle()){ binding.btnRifle.setText("Owned"); }
     }
 
-    // This method sets the current equiped gun label when upgrade menu is opened.
+    /**
+     * This method sets the current equiped gun label when upgrade menu is opened.
+     */
     private void setEquipedGun(){
-        if(user.getEquipedGun().equalsIgnoreCase("Pistol")){
-            binding.btnPistol.setText("Equiped");
-        }
-
-        else if(user.getEquipedGun().equalsIgnoreCase("Revolver")){
-            binding.btnRevolver.setText("Equiped");
-        }
-
-        else if(user.getEquipedGun().equalsIgnoreCase("Desert Eagle")){
-            binding.btnDeserteagle.setText("Equiped");
-        }
-
-        else if(user.getEquipedGun().equalsIgnoreCase("Rifle")){
-            binding.btnRifle.setText("Equiped");
-        }
+        if(user.getEquipedGun().equalsIgnoreCase("Pistol")){ binding.btnPistol.setText("Equiped"); }
+        else if(user.getEquipedGun().equalsIgnoreCase("Revolver")){ binding.btnRevolver.setText("Equiped"); }
+        else if(user.getEquipedGun().equalsIgnoreCase("Desert Eagle")){ binding.btnDeserteagle.setText("Equiped"); }
+        else if(user.getEquipedGun().equalsIgnoreCase("Rifle")){ binding.btnRifle.setText("Equiped"); }
     }
 
-    // This methods sets the upgrade price for each upgrades depending on the current upgrades the user has.
+    /**
+     * This methods sets the upgrade price for each upgrades depending on
+     * the current upgrades the user has.
+     */
     private void setUpgrades(){
         if(user.getDamageUpgradeCounter() > 0){
             int ctr = 0;
@@ -248,88 +256,57 @@ public class UpgradesMenuActivity extends AppCompatActivity {
         }
     }
 
-    // This method sets the multiplier based on the guns and upgrades owned by the user.
+    /**
+     * This method sets the multiplier based on the guns and upgrades owned by the user.
+     */
     private void getMultiplier(){
         user.setMultiplier(0);
-        if(user.getOwnedPistol()){
-            System.out.println("1st: " + user.getMultiplier());
-            user.setMultiplier(user.getMultiplier() + 1);
-            System.out.println("2nd: " + user.getMultiplier());
-        }
-
-        if(user.getOwnedRevolver()){
-            user.setMultiplier(user.getMultiplier() + 1);
-        }
-
-        if(user.getOwnedDesertEagle()){
-            user.setMultiplier(user.getMultiplier() + 1);
-        }
-
-        if(user.getOwnedRifle()){
-            user.setMultiplier(user.getMultiplier() + 1);
-        }
+        if(user.getOwnedPistol()){ user.setMultiplier(user.getMultiplier() + 1); }
+        if(user.getOwnedRevolver()){ user.setMultiplier(user.getMultiplier() + 1); }
+        if(user.getOwnedDesertEagle()){ user.setMultiplier(user.getMultiplier() + 1); }
+        if(user.getOwnedRifle()){ user.setMultiplier(user.getMultiplier() + 1); }
 
         user.setMultiplier(user.getMultiplier() + user.getDamageUpgradeCounter() + user.getPowerUpgradeCounter() + user.getControlUpgradeCounter());
         binding.tvMultinum.setText(Integer.toString(user.getMultiplier()));
     }
 
-    // This method sets the un-equiped guns owned of the user to "Owned".
+    /**
+     * This method sets the un-equiped guns owned of the user to "Owned".
+     */
     private void setOwned(int gunNum){
         switch(gunNum){
             case 1:
-                if(user.getOwnedRevolver()){
-                    binding.btnRevolver.setText("OWNED");
-                }
-                if(user.getOwnedDesertEagle()){
-                    binding.btnDeserteagle.setText("OWNED");
-                }
-                if(user.getOwnedRifle()){
-                    binding.btnRifle.setText("OWNED");
-                }
+                if(user.getOwnedRevolver()){ binding.btnRevolver.setText("OWNED"); }
+                if(user.getOwnedDesertEagle()){ binding.btnDeserteagle.setText("OWNED"); }
+                if(user.getOwnedRifle()){ binding.btnRifle.setText("OWNED"); }
                 break;
 
             case 2:
-                if(user.getOwnedPistol()){
-                    binding.btnPistol.setText("OWNED");
-                }
-                if(user.getOwnedDesertEagle()){
-                    binding.btnDeserteagle.setText("OWNED");
-                }
-                if(user.getOwnedRifle()){
-                    binding.btnRifle.setText("OWNED");
-                }
+                if(user.getOwnedPistol()){ binding.btnPistol.setText("OWNED"); }
+                if(user.getOwnedDesertEagle()){ binding.btnDeserteagle.setText("OWNED"); }
+                if(user.getOwnedRifle()){ binding.btnRifle.setText("OWNED"); }
                 break;
 
             case 3:
-                if(user.getOwnedPistol()){
-                    binding.btnPistol.setText("OWNED");
-                }
-                if(user.getOwnedRevolver()){
-                    binding.btnRevolver.setText("OWNED");
-                }
-                if(user.getOwnedRifle()){
-                    binding.btnRifle.setText("OWNED");
-                }
+                if(user.getOwnedPistol()){ binding.btnPistol.setText("OWNED"); }
+                if(user.getOwnedRevolver()){ binding.btnRevolver.setText("OWNED"); }
+                if(user.getOwnedRifle()){ binding.btnRifle.setText("OWNED"); }
                 break;
 
             case 4:
-                if(user.getOwnedPistol()){
-                    binding.btnPistol.setText("OWNED");
-                }
-                if(user.getOwnedRevolver()){
-                    binding.btnRevolver.setText("OWNED");
-                }
-                if(user.getOwnedDesertEagle()){
-                    binding.btnDeserteagle.setText("OWNED");
-                }
+                if(user.getOwnedPistol()){ binding.btnPistol.setText("OWNED"); }
+                if(user.getOwnedRevolver()){ binding.btnRevolver.setText("OWNED"); }
+                if(user.getOwnedDesertEagle()){ binding.btnDeserteagle.setText("OWNED"); }
                 break;
 
             default:
-
                 break;
         }
     }
 
+    /**
+     * Override method for onBackPressed
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();

@@ -57,7 +57,7 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
     }
 
     /**
-     * This method is used to initialize variables and views in LoginActivity
+     * This method is used to initialize variables and views in GameOnlineActivity
      */
     private void init(){
         mAuth = FirebaseAuth.getInstance();

@@ -62,17 +62,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
-
-        /*
-         * LChecking if current user is successfully logged out
-         */
-        mAuth = FirebaseAuth.getInstance();
-        if(mAuth.getCurrentUser() == null){
-            System.out.println("SUCCESS");
-        }
-        else{
-            System.out.println(mAuth.getCurrentUser().getEmail());
-        }
     }
 
     /**
