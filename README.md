@@ -1,2 +1,3 @@
-# DLSU-MOBDEVE-S17-Group10
+# Tap Marksman
+# Mobdeve S17 Machine Project Group 10
  
