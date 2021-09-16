@@ -170,7 +170,7 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
                         case 2:
                             intent.putExtra("difficulty", "Medium");
                             break;
-                            
+
                         case 3:
                             intent.putExtra("difficulty", "Hard");
                             break;

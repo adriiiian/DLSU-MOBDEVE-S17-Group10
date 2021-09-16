@@ -238,7 +238,7 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
                             break;
                     }
                     pointsTemp = pointsTemp * currentUser.getMultiplier();
-                    currentUser.setPoints(pointsTemp);
+                    currentUser.setPoints(currentUser.getPoints() + pointsTemp);
                     if(pointsTemp > currentUser.getHighestScore()){
                         currentUser.setHighestScore(pointsTemp);
                     }
