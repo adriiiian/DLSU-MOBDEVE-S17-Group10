@@ -165,6 +165,7 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
                     intent.putExtra("difficulty", Integer.toString(sp.getInt(SettingsOfflineActivity.SETTINGS_SELECTED_KEY, 1)));
                     startActivity(intent);
 
+                    binding.tvPtsctr.setText(Integer.toString(0));
                     scoreCounter = 0; // Sets the score counter to 0 after finishing the round.
                 }
             };
@@ -281,6 +282,10 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
     @Override
     protected void onDestroy(){
         super.onDestroy();
+        if(timer != null){
+            timer.cancel();
+        }
+
         if(ringerBG != null){
             ringerBG.stop();
             ringerBG.release();

@@ -24,7 +24,7 @@ public class LeaderboardsAdapter extends RecyclerView.Adapter<LeaderboardsAdapte
         this.context = context;
     }
 
-    /*
+    /**
      * Creates view for leaderboard
      */
     @Override
@@ -36,7 +36,7 @@ public class LeaderboardsAdapter extends RecyclerView.Adapter<LeaderboardsAdapte
         return leaderboardsViewHolder;
     }
 
-    /*
+    /**
      * Sets the leaderboard based on the scores of each user
      * color is also alternate
      */
@@ -58,7 +58,7 @@ public class LeaderboardsAdapter extends RecyclerView.Adapter<LeaderboardsAdapte
         }
     }
 
-    /*
+    /**
      * Gets size of user arraylist
      */
     @Override
@@ -66,7 +66,7 @@ public class LeaderboardsAdapter extends RecyclerView.Adapter<LeaderboardsAdapte
         return userArrayList.size();
     }
 
-    /*
+    /**
      * Sets the content for the leaderboards
      */
     public class LeaderboardsViewHolder extends RecyclerView.ViewHolder{
