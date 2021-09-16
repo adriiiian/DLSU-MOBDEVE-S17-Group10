@@ -70,7 +70,7 @@ public class    SettingsOnlineActivity extends AppCompatActivity {
     }
 
     /*
-     * Checks selection and returns difficulty
+     * Checks selection and returns difficulty based on selection
      */
     private String getDifficulty(){
         String result = "";
