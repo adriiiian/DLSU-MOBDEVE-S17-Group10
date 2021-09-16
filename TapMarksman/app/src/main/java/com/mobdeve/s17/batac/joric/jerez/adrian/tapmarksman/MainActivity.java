@@ -27,40 +27,45 @@ public class MainActivity extends AppCompatActivity {
             mAuth.signOut();
         }
 
-
-        // Listener to go to offline game
+        /*
+         * Listener to go to offline game
+         */
         binding.btnOffline.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, GameOfflineActivity.class);
             startActivity(intent);
             finish();
         });
 
-        // Listener to go to signup page
+        /*
+         * Listener to go to sign up page
+         */
         binding.btnCreateaccount.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
             startActivity(intent);
             finish();
         });
 
-        // Listener to go to login page
+        /*
+         * Listener to go to login page
+         */
         binding.btnOnline.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         });
 
-        // Listener to go to leaderboards page
+        /*
+         * Listener to go to leaderboards page
+         */
         binding.btnLeaderboards.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, LeaderboardsMenuActivity.class);
             startActivity(intent);
             finish();
         });
 
-        // Starts the background music when main activity is started
-//        ringer = MediaPlayer.create(MainActivity.this, R.raw.backgroundmusic);
-//        ringer.start();
-
-        // Checking if current user is successfully logged out
+        /*
+         * LChecking if current user is successfully logged out
+         */
         mAuth = FirebaseAuth.getInstance();
         if(mAuth.getCurrentUser() == null){
             System.out.println("SUCCESS");
@@ -70,7 +75,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // onPause method stops the background music
+    /**
+     * Override method for onPause
+     */
     @Override
     protected void onPause() {
         super.onPause();
@@ -80,14 +87,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Override method for onDestroy
+     */
     @Override
     protected void onDestroy(){
         super.onDestroy();
         if(ringer != null){
             ringer.stop();
+            ringer.release();
         }
     }
 
+    /**
+     * Override method for onResume
+     */
     @Override
     protected void onResume() {
         super.onResume();
