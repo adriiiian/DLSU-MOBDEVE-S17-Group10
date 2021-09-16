@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         ringer = MediaPlayer.create(MainActivity.this, R.raw.main_menu_bg_music);
         ringer.start();
+        ringer.setLooping(true);
         mAuth = FirebaseAuth.getInstance();
         if(mAuth.getCurrentUser() != null){
             mAuth.signOut();

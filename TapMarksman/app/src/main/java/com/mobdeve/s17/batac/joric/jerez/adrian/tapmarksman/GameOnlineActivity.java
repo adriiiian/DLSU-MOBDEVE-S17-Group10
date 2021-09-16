@@ -73,6 +73,7 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         }
         else if(ringerBG != null && !ringerBG.isPlaying()){
             ringerBG.start();
+            ringerBG.setLooping(true);
         }
 
 
