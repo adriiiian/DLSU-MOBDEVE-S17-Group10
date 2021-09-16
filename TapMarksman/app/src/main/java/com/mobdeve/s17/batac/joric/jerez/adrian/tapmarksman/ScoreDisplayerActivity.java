@@ -40,7 +40,7 @@ public class ScoreDisplayerActivity extends AppCompatActivity {
 
         switch(intent.getStringExtra("difficulty")){
             case "Easy":
-                totalScore = intent.getIntExtra("targets_killed", 0) * 1;
+                totalScore = intent.getIntExtra("targets_killed", 0);
                 break;
 
             case "Medium":

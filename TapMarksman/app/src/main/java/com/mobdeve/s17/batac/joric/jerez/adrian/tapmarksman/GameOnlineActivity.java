@@ -29,7 +29,7 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
 
     private ActivityGameOnlineBinding binding;
     private FirebaseAuth mAuth;
-    private int miliSecTotal = 0, secTotal = 0, secDivider = 0, secCopy, scoreCounter;
+    private int miliSecTotal = 0, secTotal = 0, secDivider = 0, secCopy, scoreCounter, pointsTemp;
     private Display display;
     private Point size;
     private float x, y;
@@ -199,6 +199,25 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
                     intent.putExtra("gamepoints", currentUser.getPoints());
                     intent.putExtra("highestScore", currentUser.getHighestScore());
                     startActivity(intent);
+
+                    switch(currentUser.getDifficulty()){
+                        case "Easy":
+                            pointsTemp = scoreCounter;
+                            break;
+
+                        case "Medium":
+                            pointsTemp = scoreCounter * 2;
+                            break;
+
+                        case "Hard":
+                            pointsTemp = scoreCounter * 3;
+                            break;
+                    }
+                    pointsTemp = pointsTemp * currentUser.getMultiplier();
+                    currentUser.setPoints(pointsTemp);
+                    if(pointsTemp > currentUser.getHighestScore()){
+                        currentUser.setHighestScore(pointsTemp);
+                    }
 
                     scoreCounter = 0; // Sets the score counter to 0 after finishing the round.
                 }
