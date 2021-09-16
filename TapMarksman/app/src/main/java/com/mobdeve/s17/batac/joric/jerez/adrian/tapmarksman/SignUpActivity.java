@@ -23,7 +23,6 @@ public class SignUpActivity extends AppCompatActivity {
     private ActivitySignUpBinding binding;
     private FirebaseAuth mAuth;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,30 +33,47 @@ public class SignUpActivity extends AppCompatActivity {
         init();
     }
 
+    /**
+     * This method is used to initialize variables and views in SignUpActivity
+     */
     private void init(){
         UserDAO userDAO = new UserDAOFirebaseImpl();
         mAuth = FirebaseAuth.getInstance();
 
-        // Listener to go back to main menu page
+        /*
+         * Listener for back button
+         */
         binding.fabBack.setOnClickListener(view -> {
             Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         });
 
-        // Listener to go to login page
+        /*
+         * Listener for go to login button
+         */
         binding.tvGotologin.setOnClickListener(view -> {
             Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
             startActivity(intent);
             finish();
         });
 
+        /*
+         * Listener for signup button
+         */
         binding.btnSignup.setOnClickListener(view -> {
-
+            /*
+             * This part is used to check whether the fields submitted is empty
+             *
+             * If empty, it wont accept the submitted fields and will highlight all empty fields
+             */
             if(checkNonEmptyFields()) {
+                /*
+                 * This part is used to check whether the password and confirm password fields
+                 * has the same value
+                 */
                 if(checkValidPassword()){
                     User user = new User();
-
                     user.setUserName(binding.etUsername.getText().toString());
                     user.setUserEmail(binding.etEmail.getText().toString());
                     user.setUserPassword(binding.etPassword.getText().toString());
@@ -74,7 +90,11 @@ public class SignUpActivity extends AppCompatActivity {
                     user.setEquipedGun("Pistol");
                     user.setHighestScore(0);
 
-                    // Code for user authentication and adding to firebase database
+                    /*
+                     * This part is used for authentication using FirebaseAuth
+                     *
+                     * Task will not be successful if the submitted values is not valid
+                     */
                     mAuth.createUserWithEmailAndPassword(user.getUserEmail(), user.getUserPassword()).addOnCompleteListener(
                             new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -95,14 +115,17 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
             else{
-                // Code for invalid inputs
                 Toast.makeText(this, "Please input correctly!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    // This method is used to check if the fields submitted by the user is empty.
-    // Returns true if there is no empty fields, and false otherwise.
+    /**
+     * This method is used to check if the fields submitted by the user is empty
+     * @return boolean
+     * true: if field is not empty
+     * false: if field is empty
+     */
     private boolean checkNonEmptyFields(){
         binding.llUsername.setBackgroundResource(R.drawable.signup_login_edit_texts);
         binding.llEmail.setBackgroundResource(R.drawable.signup_login_edit_texts);
@@ -153,7 +176,12 @@ public class SignUpActivity extends AppCompatActivity {
         return result;
     }
 
-    // This method checks if the password matches the input in confirm password
+    /**
+     * This method is used to check if the value of password matches the value of confirm password
+     * @return boolean
+     * true: if password and confirm password match
+     * false: if password and confirm password do not match
+     */
     private boolean checkValidPassword(){
         boolean result = true;
         if(binding.etPassword.getText().toString().equalsIgnoreCase(
@@ -172,8 +200,11 @@ public class SignUpActivity extends AppCompatActivity {
         return result;
     }
 
-    // This method will set the request focus for each image views and text views
-    // to their respective edit texts field
+
+    /**
+     * This method will set the request focus for each image views and text views
+     * to their respective views
+     */
     private void setRequestFocus(){
         binding.ivUsername.setOnClickListener(view -> {
             binding.etUsername.requestFocus();
@@ -208,6 +239,9 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Override method of onBackPressed
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();

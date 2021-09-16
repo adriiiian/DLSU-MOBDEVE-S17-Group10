@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Toast;
 
@@ -36,25 +35,19 @@ public class LoginActivity extends AppCompatActivity {
 
         setRequestFocus();
         init();
-
         binding.etEmail.setText(sp.getString(SAVE_EMAIL, ""));
         binding.etPassword.setText(sp.getString(SAVE_PASSWORD, ""));
         binding.cbSavepassword.setChecked(sp.getBoolean(SAVE_DETAILS, false));
-
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-
-        int width = dm.widthPixels;
-
-        binding.etEmail.setWidth((int)(width * 0.4));
-
     }
 
+    /**
+     * This method is used to initialize variables and views in LoginActivity
+     */
     private void init(){
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mAuth = FirebaseAuth.getInstance();
 
-        /**
+        /*
          * Listener for back button
          */
         binding.fabBack.setOnClickListener(view -> {
@@ -63,8 +56,8 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         });
 
-        /**
-         * Listener for signup button
+        /*
+         * Listener for go to signup button
          */
         binding.tvGotosignup.setOnClickListener(view -> {
             Intent intent = new Intent(LoginActivity.this,SignUpActivity.class);
@@ -72,13 +65,20 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         });
 
-        /**
+        /*
          * Listener for login button
          */
         binding.btnLogin.setOnClickListener(view -> {
+            /*
+             * This part is used to check whether the fields submitted is empty
+             *
+             * If empty, it wont accept the submitted fields and will highlight all empty fields
+             */
             if(checkNonEmptyFields()){
-                /**
+                /*
                  * This code is used for authentication using FirebaseAuth
+                 *
+                 * Task will not be successful if the submitted values is not valid
                  */
                 mAuth.signInWithEmailAndPassword(binding.etEmail.getText().toString(), binding.etPassword.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
