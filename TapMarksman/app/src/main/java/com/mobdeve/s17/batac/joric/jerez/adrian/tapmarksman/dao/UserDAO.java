@@ -14,6 +14,5 @@ public interface UserDAO {
     void updateUser(User user, FirebaseCallback firebaseCallback);
     void updateUserDifficulty(String difficulty, FirebaseCallback firebaseCallback);
     void updateUserGamePoints(int gamepoints, int highestScore, FirebaseCallback firebaseCallback);
-    int deleteUser(int userid);
 
 }
