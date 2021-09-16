@@ -53,7 +53,7 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
             mAuth.signOut();
         }
 
-        scoreCounter = 0;
+        scoreCounter = 0; // Sets the score counter to 0
 
         /*
          * This part plays the background music

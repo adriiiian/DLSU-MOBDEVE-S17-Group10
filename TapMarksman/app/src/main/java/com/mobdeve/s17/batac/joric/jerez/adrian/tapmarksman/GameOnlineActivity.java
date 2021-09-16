@@ -2,9 +2,7 @@ package com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
 import android.graphics.Point;
-import android.media.MediaDataSource;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,7 +20,6 @@ import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.dao.UserDAOFirebaseI
 import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.databinding.ActivityGameOnlineBinding;
 import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.model.User;
 
-import java.io.IOException;
 import java.util.Random;
 
 public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener{
@@ -44,7 +41,9 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         super.onCreate(savedInstanceState);
         UserDAO userDAO = new UserDAOFirebaseImpl();
 
-        // Gets the current logged in user information from firebase database
+        /*
+         * Gets the current logged in user information from firebase database
+         */
         userDAO.getUser(new FirebaseCallback(){
             @Override
             public void onCallBack(User user) {
@@ -57,9 +56,17 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
 
     }
 
+    /**
+     * This method is used to initialize variables and views in LoginActivity
+     */
     private void init(){
         mAuth = FirebaseAuth.getInstance();
+
         scoreCounter = 0; // Sets the score counter to 0
+
+        /*
+         * This part plays the background music
+         */
         ringerBG = MediaPlayer.create(GameOnlineActivity.this, R.raw.ingame_bg_music);
         if(ringerBG != null && ringerBG.isPlaying()){
             ringerBG.stop();
@@ -69,8 +76,10 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         }
 
 
+        /*
+         * This part is used to set image and video to their specific views
+         */
         Uri uri = null;
-        // Setting image and video to their specific views
         if(currentUser.getEquipedGun().equalsIgnoreCase("Pistol")){
             binding.ivGun.setImageResource(R.drawable.pistol);
             uri = Uri.parse("android.resource://com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman/" + R.raw.pistol);
@@ -94,7 +103,9 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         binding.vvGun.setVideoURI(uri);
         binding.vvGun.requestFocus();
 
-        // Listener for the menu popup
+        /*
+         * Listener for the menu popup
+         */
         binding.btnMenu.setOnClickListener(view -> {
             PopupMenu popup = new PopupMenu(GameOnlineActivity.this, view);
             popup.setOnMenuItemClickListener(GameOnlineActivity.this);
@@ -102,7 +113,10 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
             popup.show();
         });
 
-        // Listener for the upgrades menu button
+        /*
+         * Listener for the upgrade menu button
+         * This passes all information about the user that might be used when updating the firebase
+         */
         binding.btnUpgrades.setOnClickListener(view -> {
             Intent intent = new Intent(GameOnlineActivity.this, UpgradesMenuActivity.class);
             intent.putExtra("pistol", currentUser.getOwnedPistol());
@@ -124,7 +138,9 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
             finish();
         });
 
-        // Listener for when the user tap the target
+        /*
+         * Listener for when the user tap the target
+         */
         binding.ivTarget.setOnClickListener(view -> {
             binding.ivTarget.setVisibility(View.GONE);
             binding.vvGun.start();
@@ -135,7 +151,9 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
             isChanged = true;
         });
 
-        // Listener for the start game button
+        /*
+         * Listener for the start game button
+         */
         binding.btnStartGame.setOnClickListener(view -> {
             binding.btnStartGame.setVisibility(View.GONE);
             display = getWindowManager().getDefaultDisplay();
@@ -156,6 +174,11 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
             secCopy = secTotal;
             isChanged = false;
 
+            /*
+             * This part sets the timer of the current round
+             *
+             * Depending on the selected difficulty, the duration and speed will change
+             */
             timer = new CountDownTimer(miliSecTotal, 1000){
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -219,13 +242,18 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
                         currentUser.setHighestScore(pointsTemp);
                     }
 
+                    binding.tvPtsctr.setText(Integer.toString(0));
+
+                    pointsTemp = 0; // Sets the temporary points to 0 after finishing the round
                     scoreCounter = 0; // Sets the score counter to 0 after finishing the round.
                 }
             };
-
             timer.start();
         });
 
+        /*
+         * This part updates the timer duration and speed depending on the difficulty selected
+         */
         switch(currentUser.getDifficulty()){
             case "Easy":
                 miliSecTotal = 120000;
@@ -251,11 +279,9 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         }
     }
 
-    public void updateUser(User user){
-        currentUser = user;
-    }
-
-    // Computes the valid x multiplier for the x coordinate
+    /**
+     * Computes the valid x multiplier for the x coordinate
+     */
     private float getX(){
         Random rand = new Random();
 
@@ -267,7 +293,9 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         return result;
     }
 
-    // Computes the valid y multiplier for the x coordinate
+    /**
+     * Computes the valid y multiplier for the y coordinate
+     */
     private float getY(){
         Random rand = new Random();
 
@@ -279,7 +307,10 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         return result;
     }
 
-    // Method that handles the more options items list
+    /**
+     * Override method for onMenuItemClick
+     * This method will perform the different actions depending on the button selected in the menu
+     */
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         Intent intent;
@@ -300,6 +331,20 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         return false;
     }
 
+    /**
+     * Override method for onBackPressed
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(GameOnlineActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    /**
+     * Override method for onPause
+     */
     @Override
     protected void onPause() {
         super.onPause();
@@ -312,6 +357,9 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         }
     }
 
+    /**
+     * Override method for onDestroy
+     */
     @Override
     protected void onDestroy(){
         super.onDestroy();
@@ -321,6 +369,9 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         }
     }
 
+    /**
+     * Override method for onResume
+     */
     @Override
     protected void onResume() {
         super.onResume();
