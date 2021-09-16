@@ -18,6 +18,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.FirebaseCallback;
 import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.FirebaseLeaderboardCallback;
+import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.GameOnlineActivity;
 import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.model.User;
 
 import java.util.ArrayList;
@@ -99,7 +100,7 @@ public class UserDAOFirebaseImpl implements UserDAO{
     @Override
     public void getUser(FirebaseCallback firebaseCallback) {
         DatabaseReference temp = myRef.child(mAuth.getCurrentUser().getUid());
-        temp.addValueEventListener(new ValueEventListener() {
+        temp.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 User user = new User();
@@ -129,24 +130,20 @@ public class UserDAOFirebaseImpl implements UserDAO{
     }
 
     @Override
-    public long updateUser(User user, FirebaseCallback firebaseCallback) {
-        final long[] result = {-1};
+    public void updateUser(User user, FirebaseCallback firebaseCallback) {
 
         myRef.child(mAuth.getCurrentUser().getUid()).setValue(user, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError error, DatabaseReference ref) {
                 if(error != null){
                     Log.e("ERROR", "ERROR: " + error.getMessage());
-                    result[0] = -2;
                 }
                 else{
                     Log.d("SUCCESS", "DATA UPDATED");
-                    result[0] = 1L;
                     firebaseCallback.onCallBack(user);
                 }
             }
         });
-        return result[0];
     }
 
     @Override

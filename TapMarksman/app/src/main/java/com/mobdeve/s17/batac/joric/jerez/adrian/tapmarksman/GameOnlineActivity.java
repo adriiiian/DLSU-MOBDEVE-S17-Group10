@@ -2,7 +2,9 @@ package com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.Point;
+import android.media.MediaDataSource;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.dao.UserDAOFirebaseI
 import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.databinding.ActivityGameOnlineBinding;
 import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.model.User;
 
+import java.io.IOException;
 import java.util.Random;
 
 public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener{
@@ -57,7 +60,6 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
     private void init(){
         mAuth = FirebaseAuth.getInstance();
         scoreCounter = 0; // Sets the score counter to 0
-
         ringerBG = MediaPlayer.create(GameOnlineActivity.this, R.raw.ingame_bg_music);
         if(ringerBG != null && ringerBG.isPlaying()){
             ringerBG.stop();
@@ -65,6 +67,7 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
         else if(ringerBG != null && !ringerBG.isPlaying()){
             ringerBG.start();
         }
+
 
         Uri uri = null;
         // Setting image and video to their specific views
@@ -227,6 +230,10 @@ public class GameOnlineActivity extends AppCompatActivity implements PopupMenu.O
                 break;
 
         }
+    }
+
+    public void updateUser(User user){
+        currentUser = user;
     }
 
     // Computes the valid x multiplier for the x coordinate
