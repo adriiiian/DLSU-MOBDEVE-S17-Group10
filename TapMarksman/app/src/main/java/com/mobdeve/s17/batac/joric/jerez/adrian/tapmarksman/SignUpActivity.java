@@ -240,7 +240,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     /**
-     * Override method of onBackPressed
+     * Override method for onBackPressed
      */
     @Override
     public void onBackPressed() {

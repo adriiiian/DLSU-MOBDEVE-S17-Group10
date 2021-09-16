@@ -172,7 +172,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Override method of onBackPressed
+     * Override method for onBackPressed
      */
     @Override
     public void onBackPressed() {
@@ -183,7 +183,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Override method of onPause
+     * Override method for onPause
      */
     @Override
     public void onPause(){

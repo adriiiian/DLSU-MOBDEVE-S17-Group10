@@ -44,6 +44,9 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
         init();
     }
 
+    /**
+     * This method is used to initialize variables and views in LoginActivity
+     */
     private void init(){
         mAuth = FirebaseAuth.getInstance();
         if(mAuth.getCurrentUser() != null){
@@ -52,18 +55,26 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
 
         scoreCounter = 0;
 
+        /*
+         * This part plays the background music
+         */
         ringerBG = MediaPlayer.create(GameOfflineActivity.this, R.raw.ingame_bg_music);
         if(ringerBG != null && !ringerBG.isPlaying()){
             ringerBG.start();
+            ringerBG.setLooping(true);
         }
 
-        // Setting image and video to their specific views
+        /*
+         * This part is used to set image and video to their specific views
+         */
         Uri uri = Uri.parse("android.resource://com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman/" + R.raw.pistol);
         binding.vvGun.setVideoURI(uri);
         binding.vvGun.requestFocus();
         ringer = MediaPlayer.create(GameOfflineActivity.this, R.raw.pistol_sound);
 
-        // Listener for the menu popup
+        /*
+         * Listener for the menu popup
+         */
         binding.btnMenu.setOnClickListener(view -> {
             PopupMenu popup = new PopupMenu(GameOfflineActivity.this, view);
             popup.setOnMenuItemClickListener(GameOfflineActivity.this);
@@ -71,7 +82,9 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
             popup.show();
         });
 
-        // Listener for when the user tap the target
+        /*
+         * Listener for when the user tap the target
+         */
         binding.ivTarget.setOnClickListener(view -> {
             binding.ivTarget.setVisibility(View.GONE);
             binding.vvGun.start();
@@ -82,7 +95,9 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
             isChanged = true;
         });
 
-        // Listener for the start game button
+        /*
+         * Listener for the start game button
+         */
         binding.btnStartGame.setOnClickListener(view -> {
             binding.btnStartGame.setVisibility(View.GONE);
             display = getWindowManager().getDefaultDisplay();
@@ -103,6 +118,11 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
             secCopy = secTotal;
             isChanged = false;
 
+            /*
+             * This part sets the timer of the current round
+             *
+             * Depending on the selected difficulty, the duration and speed will change
+             */
             timer = new CountDownTimer(miliSecTotal, 1000){
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -148,11 +168,12 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
                     scoreCounter = 0; // Sets the score counter to 0 after finishing the round.
                 }
             };
-
             timer.start();
         });
 
-        // Shared preference
+        /*
+         * Shared preference
+         */
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         switch(sp.getInt(SettingsOfflineActivity.SETTINGS_SELECTED_KEY, 1)){
             case 1:
@@ -178,7 +199,9 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
         }
     }
 
-    // Computes the valid x multiplier for the x coordinate
+    /**
+     * Computes the valid x multiplier for the x coordinate
+     */
     private float getX(){
         Random rand = new Random();
 
@@ -190,7 +213,9 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
         return result;
     }
 
-    // Computes the valid y multiplier for the x coordinate
+    /**
+     * Computes the valid y multiplier for the y coordinate
+     */
     private float getY(){
         Random rand = new Random();
 
@@ -202,6 +227,10 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
         return result;
     }
 
+    /**
+     * Override method for onMenuItemClick
+     * This method will perform the different actions depending on the button selected in the menu
+     */
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         Intent intent;
@@ -220,6 +249,20 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
         return false;
     }
 
+    /**
+     * Override method for onBackPressed
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(GameOfflineActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    /**
+     * Override method for onPause
+     */
     @Override
     protected void onPause() {
         super.onPause();
@@ -232,14 +275,21 @@ public class GameOfflineActivity extends AppCompatActivity implements PopupMenu.
         }
     }
 
+    /**
+     * Override method for onDestroy
+     */
     @Override
     protected void onDestroy(){
         super.onDestroy();
         if(ringerBG != null){
             ringerBG.stop();
+            ringerBG.release();
         }
     }
 
+    /**
+     * Override method for onResume
+     */
     @Override
     protected void onResume() {
         super.onResume();
