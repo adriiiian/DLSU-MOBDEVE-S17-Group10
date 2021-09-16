@@ -39,7 +39,7 @@ public class SettingsOfflineActivity extends AppCompatActivity {
         });
     }
 
-    /*
+    /**
      * Return user to the game screen after hitting back
      */
     @Override
@@ -50,7 +50,7 @@ public class SettingsOfflineActivity extends AppCompatActivity {
         finish();
     }
 
-    /*
+    /**
      * Checks changes based on the selection (easy, medium, or hard)
      */
     @Override

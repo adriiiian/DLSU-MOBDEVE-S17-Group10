@@ -31,9 +31,16 @@ public class UserDAOFirebaseImpl implements UserDAO{
     private User result = new User();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+    /**
+     * Constructor for UserDAOFirebaseImpl
+     */
     public UserDAOFirebaseImpl(){
         final String TAG = "Listener";
     }
+
+    /**
+     * This method is used for adding user into the database
+     */
     @Override
     public long addUser(User user) {
         final long[] result = {-1};
@@ -54,6 +61,10 @@ public class UserDAOFirebaseImpl implements UserDAO{
         return result[0];
     }
 
+    /**
+     * This method is used for getting all users from the database that might be used in the
+     * leaderboards activity
+     */
     @Override
     public ArrayList<User> getUsers(FirebaseLeaderboardCallback firebaseLeaderboardCallback) {
         ArrayList<User> users = new ArrayList<>();
@@ -91,12 +102,14 @@ public class UserDAOFirebaseImpl implements UserDAO{
                 }
             }
         });
-
-
-
         return users;
     }
 
+    /**
+     * This method is used to get a single user. This is used everytime
+     * a user login in the game. This method gets all information from the user
+     * from the database that might be used later on
+     */
     @Override
     public void getUser(FirebaseCallback firebaseCallback) {
         DatabaseReference temp = myRef.child(mAuth.getCurrentUser().getUid());
@@ -129,6 +142,9 @@ public class UserDAOFirebaseImpl implements UserDAO{
         });
     }
 
+    /**
+     * This method is used to update the entry of the current user from the database
+     */
     @Override
     public void updateUser(User user, FirebaseCallback firebaseCallback) {
 
@@ -146,6 +162,9 @@ public class UserDAOFirebaseImpl implements UserDAO{
         });
     }
 
+    /**
+     * This method is used to update the difficulty value of the current user from the database
+     */
     @Override
     public void updateUserDifficulty(String difficulty, FirebaseCallback firebaseCallback) {
         myRef.child(mAuth.getCurrentUser().getUid()).child("difficulty").setValue(difficulty, new DatabaseReference.CompletionListener() {
@@ -163,16 +182,14 @@ public class UserDAOFirebaseImpl implements UserDAO{
         });
     }
 
+    /**
+     * This method is used to update the game points value of the current user from the database
+     */
     @Override
     public void updateUserGamePoints(int gamepoints, int highestScore, FirebaseCallback firebaseCallback) {
         myRef.child(mAuth.getCurrentUser().getUid()).child("points").setValue(gamepoints);
         myRef.child(mAuth.getCurrentUser().getUid()).child("highestScore").setValue(highestScore);
         User user = new User();
         firebaseCallback.onCallBack(user);
-    }
-
-    @Override
-    public int deleteUser(int userid) {
-        return 0;
     }
 }

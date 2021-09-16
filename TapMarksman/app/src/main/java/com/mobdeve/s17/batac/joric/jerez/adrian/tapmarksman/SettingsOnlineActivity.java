@@ -44,7 +44,7 @@ public class    SettingsOnlineActivity extends AppCompatActivity {
         });
     }
 
-    /*
+    /**
      * Checks the difficulty and  sets it as selected in settings menu
      */
     private void init(){
@@ -69,7 +69,7 @@ public class    SettingsOnlineActivity extends AppCompatActivity {
 
     }
 
-    /*
+    /**
      * Checks selection and returns difficulty based on selection
      */
     private String getDifficulty(){
@@ -87,7 +87,7 @@ public class    SettingsOnlineActivity extends AppCompatActivity {
         return result;
     }
 
-    /*
+    /**
      * Return user to the game screen after hitting back, updates the database on new difficculty set by user
      */
     @Override
