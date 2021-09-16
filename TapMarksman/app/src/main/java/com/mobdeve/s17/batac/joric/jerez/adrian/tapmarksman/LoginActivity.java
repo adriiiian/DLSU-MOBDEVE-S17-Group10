@@ -16,9 +16,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.databinding.ActivityLoginBinding;
-import com.mobdeve.s17.batac.joric.jerez.adrian.tapmarksman.model.User;
-
-import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -48,7 +45,6 @@ public class LoginActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
         int width = dm.widthPixels;
-        int height = dm.heightPixels;
 
         binding.etEmail.setWidth((int)(width * 0.4));
 
@@ -58,24 +54,32 @@ public class LoginActivity extends AppCompatActivity {
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mAuth = FirebaseAuth.getInstance();
 
-        // Listener to go back to main menu page
+        /**
+         * Listener for back button
+         */
         binding.fabBack.setOnClickListener(view -> {
             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
             startActivity(intent);
             finish();
         });
 
-        // Listener to go to sign up page
+        /**
+         * Listener for signup button
+         */
         binding.tvGotosignup.setOnClickListener(view -> {
             Intent intent = new Intent(LoginActivity.this,SignUpActivity.class);
             startActivity(intent);
             finish();
         });
 
-        // Listener to the login button
+        /**
+         * Listener for login button
+         */
         binding.btnLogin.setOnClickListener(view -> {
             if(checkNonEmptyFields()){
-                // Code for user authentication when logging in.
+                /**
+                 * This code is used for authentication using FirebaseAuth
+                 */
                 mAuth.signInWithEmailAndPassword(binding.etEmail.getText().toString(), binding.etPassword.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -111,8 +115,10 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    // This method will set the request focus for each image views and text views
-    // to their respective edit texts field
+    /**
+     * This method will set the request focus for each image views and text views
+     * to their respective views
+     */
     private void setRequestFocus(){
         binding.ivEmail.setOnClickListener(view -> {
             binding.etEmail.requestFocus();
@@ -132,8 +138,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    // This method is used to check if the fields submitted by the user is empty.
-    // Returns true if not empty, and false otherwise.
+    /**
+     * This method is used to check if the fields submitted by the user is empty
+     * @return boolean
+     * true: if field is not empty
+     * false: if field is empty
+     */
     private boolean checkNonEmptyFields(){
         binding.llEmail.setBackgroundResource(R.drawable.signup_login_edit_texts);
         binding.llPassword.setBackgroundResource(R.drawable.signup_login_edit_texts);
@@ -161,6 +171,9 @@ public class LoginActivity extends AppCompatActivity {
         return result;
     }
 
+    /**
+     * Override method of onBackPressed
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -169,10 +182,12 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Override method of onPause
+     */
     @Override
     public void onPause(){
         super.onPause();
-
         spEditor = sp.edit();
         spEditor.putBoolean(SAVE_DETAILS, binding.cbSavepassword.isChecked());
         spEditor.apply();
